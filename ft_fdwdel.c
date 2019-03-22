@@ -1,48 +1,22 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   ft_strcpy.c                                        :+:      :+:    :+:   */
+/*   ft_fdwdel.c                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: gfielder <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2018/09/24 11:40:55 by gfielder          #+#    #+#             */
-/*   Updated: 2019/03/21 19:19:48 by gfielder         ###   ########.fr       */
+/*   Created: 2019/03/02 04:12:58 by gfielder          #+#    #+#             */
+/*   Updated: 2019/03/02 21:14:58 by gfielder         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include <stddef.h>
+#include <stdlib.h>
+#include "libft.h"
 
-char	*ft_strcpy(char *dst, const char *src)
+void	ft_fdwdel(t_fdwriter **fdw)
 {
-	int	i;
-
-	i = 0;
-	while (src[i] != '\0')
-	{
-		dst[i] = src[i];
-		i++;
-	}
-	dst[i] = '\0';
-	return (dst);
-}
-
-char	*ft_strncpy(char *dst, const char *src, size_t n)
-{
-	size_t	i;
-	size_t	j;
-
-	i = 0;
-	j = 0;
-	while (i < n)
-	{
-		if (i == j && src[i] != '\0')
-		{
-			dst[i] = src[i];
-			j++;
-		}
-		else
-			dst[i] = '\0';
-		i++;
-	}
-	return (dst);
+	if (fdw == NULL || *fdw == NULL)
+		return ;
+	free(*fdw);
+	*fdw = NULL;
 }

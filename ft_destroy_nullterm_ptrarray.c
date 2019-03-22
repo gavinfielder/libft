@@ -1,48 +1,31 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   ft_strcpy.c                                        :+:      :+:    :+:   */
+/*   ft_destroy_nullterm_ptrarray.c                     :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: gfielder <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2018/09/24 11:40:55 by gfielder          #+#    #+#             */
-/*   Updated: 2019/03/21 19:19:48 by gfielder         ###   ########.fr       */
+/*   Created: 2019/03/07 23:30:47 by gfielder          #+#    #+#             */
+/*   Updated: 2019/03/07 23:37:35 by gfielder         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include <stddef.h>
+#include <stdlib.h>
+#include "libft.h"
 
-char	*ft_strcpy(char *dst, const char *src)
+void	ft_destroy_nullterm_ptrarray(void ***arr)
 {
-	int	i;
+	int		i;
 
+	if (arr == NULL || *arr == NULL)
+		return ;
 	i = 0;
-	while (src[i] != '\0')
+	while ((*arr)[i] != NULL)
 	{
-		dst[i] = src[i];
+		free(((*arr)[i]));
+		(*arr)[i] = NULL;
 		i++;
 	}
-	dst[i] = '\0';
-	return (dst);
-}
-
-char	*ft_strncpy(char *dst, const char *src, size_t n)
-{
-	size_t	i;
-	size_t	j;
-
-	i = 0;
-	j = 0;
-	while (i < n)
-	{
-		if (i == j && src[i] != '\0')
-		{
-			dst[i] = src[i];
-			j++;
-		}
-		else
-			dst[i] = '\0';
-		i++;
-	}
-	return (dst);
+	free(*arr);
+	*arr = NULL;
 }

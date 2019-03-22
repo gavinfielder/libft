@@ -1,12 +1,12 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   ft_hat_toarr.c                                     :+:      :+:    :+:   */
+/*   ft_hat.c                                           :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: gfielder <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2019/02/19 17:51:16 by gfielder          #+#    #+#             */
-/*   Updated: 2019/03/21 18:11:24 by gfielder         ###   ########.fr       */
+/*   Created: 2019/03/21 16:02:15 by gfielder          #+#    #+#             */
+/*   Updated: 2019/03/21 16:31:59 by gfielder         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,11 +15,7 @@
 
 /*
 ** ----------------------------------------------------------------------------
-**                               ft_hat_toarr.c
-** ----------------------------------------------------------------------------
-**      This file contains the function that copies subsets of t_hat memory
-**      into a contiguous memory space. It is a part of the public interface
-**      for ft_hat.
+**                                  ft_hat.c
 ** ----------------------------------------------------------------------------
 **      Hashed Array Table is a dynamically growing collection implemented
 **      as a doubly linked list of arrays. It can store up to uint_max items
@@ -40,74 +36,88 @@
 **      [20,29], then on accessing index -54 will have the two leaves
 **      [-60,-51]<=>[20,29]. No intermediate leaves are created until needed.
 ** ----------------------------------------------------------------------------
-**      1. ft_hat_toarr     Returns an array populated with a copy of a subset
-**                          of the memory contained in the t_hat. The array
-**                          will have a copy of the data starting at the given
-**                          hat index, contain the specified number of
-**                          elements, and be null terminated with a zero of
-**                          the same size as the elements in the t_hat.
+**      1. ft_hatnew      creates a new t_hat
+**      2. ft_hatset      sets the requested index to be a copy of pointed data
+**      3. ft_hataccess   returns a pointer to a requested index, first
+**                        creating a new leaf if necessary
+**      4. ft_hatdel      deletes a t_hat.
 **
-**                          If not all of the requested range of indices exist,
-**                          the function will abort and return NULL.
+**      Also included in the public interface is ft_hat_toarr, ft_hatreindex,
+**      and ft_hatprint, all of which are included in another file.
 ** ----------------------------------------------------------------------------
 **                                    Safety
 ** ----------------------------------------------------------------------------
-**      ft_hat_toarr returns NULL on malloc failure as well as returning NULL
-**      if a leaf is missing in the requested interval of indices.
-**      Safety is otherwise guaranteed provided only ft_hat public interface
-**      funtions were used to manage the t_hat structure.
+**      ft_hat is designed to only hold one data type, and it is recommended
+**      to use sizeof(type) when invoking ft_hatnew. Storing multiple data
+**      types in a single t_hat does not guarantee safety for any operation.
+**      ft_hatnew and ft_hataccess both return NULL on malloc failure.
+**      ft_hatset relies on ft_hataccess, and if ft_hataccess fails, nothing
+**      will be done.
+**      Otherwise safety is guaranteed provided only the public interface
+**      functions are used to manage t_hat structures.
 ** ----------------------------------------------------------------------------
 **                                 Dependencies
 ** ----------------------------------------------------------------------------
-**      ft_memcpy, ft_memalloc, ft_bzero (via ft_memalloc)
+**      ft_memcpy, ft_bzero
 ** ----------------------------------------------------------------------------
 */
 
-static int	initial_error_checks(t_hat *hat, int index,
-				t_hatlf **current, int *local)
+t_hat	*ft_hatnew(size_t leaf_capacity, size_t atom_size)
 {
-	if (hat == NULL || hat->head == NULL)
-		return (0);
-	*current = hat->head;
-	while ((int)((*current)->start_index + hat->leaf_capacity) - 1 < index)
-		*current = (*current)->next;
-	*local = index - (*current)->start_index;
-	if (*local < 0 || *local >= (int)(hat->leaf_capacity))
-		return (0);
-	return (1);
-}
+	t_hat	*hat;
 
-static void	*abort_copy(void *arr)
-{
-	free(arr);
-	return (NULL);
-}
-
-void		*ft_hat_toarr(t_hat *hat, int index, size_t count)
-{
-	void	*arr;
-	t_hatlf	*cur;
-	int		i;
-	int		local;
-
-	if (count == 0)
-		return (ft_strdup(""));
-	if (initial_error_checks(hat, index, &cur, &local) == 0 ||
-			(!((arr = ft_memalloc(((count + 1) * hat->atom_size))))))
+	hat = (t_hat *)malloc(sizeof(t_hat));
+	if (hat == NULL)
 		return (NULL);
-	i = 0;
-	while (count--)
+	hat->leaf_capacity = leaf_capacity;
+	hat->atom_size = atom_size;
+	hat->head = NULL;
+	hat->tail = NULL;
+	return (hat);
+}
+
+void	ft_hatset(t_hat *hat, int index, void *data)
+{
+	void	*ptr;
+
+	ptr = ft_hataccess(hat, index);
+	if (ptr == NULL)
+		return ;
+	ft_memcpy(ptr, data, hat->atom_size);
+}
+
+void	*ft_hataccess(t_hat *hat, int index)
+{
+	int		start_index;
+	t_hatlf	*lf;
+	t_hatlf	*current;
+
+	if (hat == NULL)
+		return (NULL);
+	current = hat->head;
+	start_index = ft_hat_get_start_index(hat, index);
+	while (current && current->start_index < start_index)
+		current = current->next;
+	if (!current || current->start_index != start_index)
 	{
-		ft_memcpy(arr + i++, cur->data + local, hat->atom_size);
-		index++;
-		local++;
-		if (local == (int)(hat->leaf_capacity))
-		{
-			cur = cur->next;
-			local = 0;
-			if ((!cur && count) || (cur != NULL && index != cur->start_index))
-				return (abort_copy(arr));
-		}
+		lf = ft_hatlfnew(hat->leaf_capacity, hat->atom_size, start_index);
+		if (lf == NULL)
+			return (NULL);
+		ft_hatinslf(hat, lf);
+		return (lf->data + ((index - start_index) * (hat->atom_size)));
 	}
-	return (arr);
+	return (current->data + ((index - start_index) * (hat->atom_size)));
+}
+
+void	ft_hatdel(t_hat **hat)
+{
+	t_hatlf	*tmp;
+
+	while ((*hat)->head)
+	{
+		tmp = (*hat)->head;
+		ft_hatdellf(*hat, &tmp);
+	}
+	free(*hat);
+	*hat = NULL;
 }

@@ -6,7 +6,7 @@
 /*   By: gfielder <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/02/11 19:50:30 by gfielder          #+#    #+#             */
-/*   Updated: 2019/02/22 01:46:54 by gfielder         ###   ########.fr       */
+/*   Updated: 2019/03/21 21:12:14 by gfielder         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -33,8 +33,6 @@ void				*ft_memmove(void *dst, const void *src, size_t len);
 void				*ft_memchr(const void *s, int c, size_t n);
 int					ft_memcmp(const void *s1, const void *s2, size_t n);
 void				*ft_memalloc(size_t size);
-void				ft_memdel(void **ap);
-void				*ft_memdelr(void **ap);
 
 /*
 ** ----------------------------- String informators ----------------------------
@@ -60,12 +58,13 @@ char				*ft_strsub(char const *s, unsigned int start, size_t len);
 char				*ft_strdup(const char *str);
 char				*ft_strcpy(char *dst, const char *src);
 char				*ft_strncpy(char *dst, const char *src, size_t len);
-void				*ft_strdel(char **as);
-char				*ft_strmap(char const *s, char (*f)(char));
-char				*ft_strmapi(char const *s, char (*f)(unsigned int, char));
+void				ft_strdel(char **as);
 char				*ft_strjoin(char const *s1, char const *s2);
+void				ft_strjoin_inplace(char **s1, char const *s2);
+void				ft_strjoin_inplace_rev(const char *s1, char **s2);
 char				*ft_strtrim(char const *s);
 char				**ft_strsplit(char const *s, char c);
+void				ft_destroy_nullterm_ptrarray(void ***arr);
 
 /*
 ** ------------------------------- String modifiers ----------------------------
@@ -75,28 +74,21 @@ char				*ft_strcat(char *dest, const char *src);
 char				*ft_strncat(char *dest, const char *src, size_t nb);
 unsigned int		ft_strlcat(char *dest, const char *src, size_t size);
 void				ft_strclr(char *s);
-void				ft_striter(char *s, void (*f)(char *));
-void				ft_striteri(char *s, void (*f)(unsigned int, char *));
-int					ft_toupper(int c);
-int					ft_tolower(int c);
+void				ft_strinsert_nchr(char **str, char c, int index, int n);
+void				ft_strwrite_nchar(char *str, char c, int n);
 
 /*
 ** --------------------------- String-integer conversion -----------------------
 */
 
 int					ft_atoi(const char *str);
+unsigned long		ft_atoul(const char *str);
 char				*ft_itoa(int value);
+char				*ft_litoa(long long value);
+char				*ft_luitoa(unsigned long long value);
 char				*ft_itoa_base(int value, int base);
-
-/*
-** ----------------------------- Data type checking ----------------------------
-*/
-
-int					ft_isalpha(int c);
-int					ft_isdigit(int c);
-int					ft_isalnum(int c);
-int					ft_isascii(int c);
-int					ft_isprint(int c);
+char				*ft_luitoa_base_upper(unsigned long long value, int base);
+char				*ft_luitoa_base_lower(unsigned long long value, int base);
 
 /*
 ** ----------------------------- Printing functions  ---------------------------
@@ -104,37 +96,15 @@ int					ft_isprint(int c);
 
 void				ft_putchar(char c);
 void				ft_putstr(char const *s);
-void				ft_putendl(char const *s);
 void				ft_putnbr(int nb);
 void				ft_putchar_fd(char c, int fd);
 void				ft_putstr_fd(char const *s, int fd);
-void				ft_putendl_fd(char const *s, int fd);
 void				ft_putnbr_fd(int nb, int fd);
-void				ft_print_memory(const void *addr, size_t size);
 void				ft_printhexbyte(const void *loc);
 void				ft_print_hex(unsigned int n);
 void				ft_print_hex_padded(unsigned int n, unsigned int width);
 void				ft_putchar_np(char c, char c_if_nonprintable);
-
-/*
-** ------------------------------- Linked Lists --------------------------------
-*/
-
-typedef struct		s_list
-{
-	void			*content;
-	size_t			content_size;
-	struct s_list	*next;
-}					t_list;
-
-t_list				*ft_lstnew(void const *content, size_t content_size);
-void				ft_lstdelone(t_list **alst, void (*del)(void *, size_t));
-void				ft_lstdel(t_list **alst, void (*del)(void *, size_t));
-void				ft_lstadd(t_list **alst, t_list *new_elem);
-void				ft_lstiter(t_list *lst, void (*f)(t_list *elem));
-t_list				*ft_lstmap(t_list *lst, t_list *(*f)(t_list *elem));
-t_list				*ft_lstnew_byref(void const *content, size_t content_size);
-t_list				*ft_lstcpy_elem(t_list *tocopy);
+void				ft_putstr_np(const char *str, char c_if_nonprintable);
 
 /*
 ** ---------------------------- Hashed Array Tables ----------------------------
@@ -176,5 +146,94 @@ int					ft_hat_get_start_index(t_hat *hat, int index);
 int					ft_hat_get_end_index(t_hat *hat, int index);
 t_hatlf				*ft_hatlfnew(size_t leaf_capacity, size_t atom_size,
 						int start_index);
+
+/*
+** ------------------------------- Stringbuilder -------------------------------
+*/
+
+# define FT_STRINGBUILDER_LEAFSIZE 32
+
+typedef struct		s_stringbuilder
+{
+	char			type;
+	size_t			len;
+	t_hat			*hat;
+}					t_stringbuilder;
+
+t_stringbuilder		*ft_sbnew(void);
+void				ft_sbdel(t_stringbuilder **sb);
+char				*ft_sbtostr(t_stringbuilder *sb);
+void				ft_sbwrite(t_stringbuilder *sb, const char *str);
+void				ft_sbwriten(t_stringbuilder *sb, const char *str, size_t n);
+void				ft_sbclear(t_stringbuilder *sb);
+
+/*
+** ------------------------------- Stringwriter --------------------------------
+*/
+
+typedef struct		s_stringwriter
+{
+	char			type;
+	size_t			len;
+	char			*buff;
+	size_t			capacity;
+}					t_stringwriter;
+
+t_stringwriter		*ft_swnew(char *buff_location, size_t capacity);
+void				ft_swdel(t_stringwriter **sw);
+void				ft_swwrite(t_stringwriter *sw, const char *str);
+void				ft_swwriten(t_stringwriter *sw, const char *str, size_t n);
+void				ft_swclear(t_stringwriter *sw);
+
+/*
+** Buffwriter is a variant of stringwriter that does not null terminate
+*/
+
+t_stringwriter		*ft_bwnew(char *buff_location, size_t capacity);
+void				ft_bwwrite(t_stringwriter *sw, const char *str);
+void				ft_bwwriten(t_stringwriter *sw, const char *str, size_t n);
+/*
+** The below functions are wrappers for the corresponding sw functions. They
+** are only provided for interface completeness.
+*/
+void				ft_bwdel(t_stringwriter **sw);
+void				ft_bwclear(t_stringwriter *sw);
+
+/*
+** ------------------------------- Fildeswriter --------------------------------
+*/
+
+typedef struct		s_fdwriter
+{
+	char			type;
+	size_t			len;
+	int				fd;
+}					t_fdwriter;
+
+t_fdwriter			*ft_fdwnew(int fd);
+void				ft_fdwdel(t_fdwriter **fdw);
+void				ft_fdwwrite(t_fdwriter *fdw, const char *str);
+void				ft_fdwwriten(t_fdwriter *fdw, const char *str, size_t n);
+void				ft_fdwclear(t_fdwriter *fdw);
+
+/*
+** ------------------------------ Multistringer --------------------------------
+**    Emulated polymorphism for various string writing functionality
+*/
+
+typedef union		u_multistringer
+{
+	t_stringbuilder	sb;
+	t_stringwriter	sw;
+	t_fdwriter		fdw;
+}					t_multistringer;
+
+void				ft_msdel(t_multistringer **ms);
+void				ft_mswrite(t_multistringer *ms, const char *str);
+void				ft_mswriten(t_multistringer *ms, const char *str,
+						size_t n);
+void				ft_msclear(t_multistringer *ms);
+void				ft_msputnchar(t_multistringer *ms, char c, int n);
+void				ft_ms_put_ul(t_multistringer *ms, unsigned long nb);
 
 #endif

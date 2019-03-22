@@ -3,95 +3,67 @@
 /*                                                        :::      ::::::::   */
 /*   ft_strsplit.c                                      :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: gfielder <marvin@42.fr>                    +#+  +:+       +#+        */
+/*   By: jinpark <marvin@42.fr>                     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2019/02/13 11:21:09 by gfielder          #+#    #+#             */
-/*   Updated: 2019/02/13 19:57:59 by gfielder         ###   ########.fr       */
+/*   Created: 2019/03/21 20:52:48 by gfielder          #+#    #+#             */
+/*   Updated: 2019/03/21 20:57:20 by gfielder         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include <stdlib.h>
-#include "libft.h"
-
-static void			destroy_list(t_list **lst)
-{
-	t_list	*tmp;
-
-	tmp = *lst;
-	while (tmp != NULL)
-	{
-		tmp = tmp->next;
-		ft_memdel((void **)lst);
-		*lst = tmp;
-	}
-}
-
 /*
-** Note this takes the last entry in the array and the head of the list
+** Adapted from jinpark's code.
+**
+** Switched because my implementation relied on ft_lst and I wanted to delete
+** ft_lst. I'll need to come back and rewrite this later.
 */
 
-static void			list_to_arr(t_list **lst, char **entry, int *failed)
+#include "libft.h"
+#include <stdlib.h>
+
+static size_t	count_words(char const *s, char c)
 {
-	if ((*lst)->content != NULL)
+	size_t cnt;
+
+	cnt = 0;
+	while (*s == c)
+		s++;
+	while (*s)
 	{
-		list_to_arr(&((*lst)->next), entry - 1, failed);
-		*entry = ft_strsub((*lst)->content, 0, (*lst)->content_size);
-		if (*entry == NULL)
-			*failed = 1;
+		while (*s == c)
+			s++;
+		while (*s && *s != c)
+			s++;
+		if (*s || *s == '\0')
+			cnt++;
 	}
+	return (cnt);
 }
 
-static int			list_words(char const *s, char delim, t_list **lst)
+char			**ft_strsplit(char const *s, char c)
 {
-	unsigned int	i;
-	int				words;
-	unsigned int	prev_delim;
-	t_list			*head;
+	char	**a;
+	size_t	inside_a_word;
+	size_t	word_index;
+	size_t	i;
+	size_t	start;
 
-	i = 0;
-	words = 0;
-	prev_delim = 1;
-	while (s[i])
+	if (!s)
+		return (NULL);
+	if (!(a = (char **)ft_memalloc((count_words(s, c) + 2) * sizeof(char *))))
+		return (NULL);
+	word_index = 0;
+	inside_a_word = 0;
+	i = -1;
+	start = 0;
+	while (s[++i])
 	{
-		if (prev_delim && s[i] != delim)
-		{
-			words++;
-			head = ft_lstnew_byref(s + i, 1);
-			if (head == NULL)
-				return (-1);
-			ft_lstadd(lst, head);
-		}
-		else if (!prev_delim && s[i] != delim)
-			(*lst)->content_size++;
-		prev_delim = (s[i] == delim);
-		i++;
+		if (inside_a_word && s[i] == c)
+			a[word_index++] = ft_strsub(s, start, i - start);
+		if (!inside_a_word && s[i] != c)
+			start = i;
+		inside_a_word = (s[i] == c) ? 0 : 1;
 	}
-	return (words);
-}
-
-char				**ft_strsplit(char const *s, char c)
-{
-	int		count;
-	char	**arr;
-	t_list	*lst;
-	int		failed;
-
-	if (s == NULL)
-		return (NULL);
-	lst = ft_lstnew_byref(NULL, 0);
-	if (lst == NULL)
-		return (NULL);
-	count = list_words(s, c, &lst);
-	if (count < 0)
-		return (NULL);
-	arr = (char **)malloc(sizeof(char *) * (count + 1));
-	if (arr == NULL)
-		return (NULL);
-	arr[count] = 0;
-	failed = 0;
-	list_to_arr(&lst, arr + count - 1, &failed);
-	destroy_list(&lst);
-	if (failed)
-		return (NULL);
-	return (arr);
+	if (inside_a_word)
+		a[word_index] = ft_strsub(s, start, i - start);
+	return (a);
 }

@@ -1,44 +1,90 @@
 # **************************************************************************** #
 #                                                                              #
 #                                                         :::      ::::::::    #
-#    Makefile.new                                       :+:      :+:    :+:    #
+#    Makefile                                           :+:      :+:    :+:    #
 #                                                     +:+ +:+         +:+      #
 #    By: gfielder <marvin@42.fr>                    +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
-#    Created: 2019/02/19 14:34:55 by gfielder          #+#    #+#              #
-#    Updated: 2019/02/22 01:46:31 by gfielder         ###   ########.fr        #
+#    Created: 2019/03/21 14:09:16 by gfielder          #+#    #+#              #
+#    Updated: 2019/03/21 21:05:53 by gfielder         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
-
+#
 NAME=libft.a
 CC=clang
-CFLAGS=-Wall -Wextra -Werror -I includes/
+CFLAGS=-Wall -g -Wextra -Werror -I includes/
 
-SRC=ft_atoi.c ft_bzero.c ft_isalnum.c ft_isalpha.c ft_isascii.c ft_isdigit.c ft_isprint.c ft_itoa.c ft_itoa_base.c ft_lstadd.c ft_lstcpy_elem.c ft_lstdel.c ft_lstdelone.c ft_lstiter.c ft_lstmap.c ft_lstnew.c ft_lstnew_byref.c ft_memalloc.c ft_memccpy.c ft_memchr.c ft_memcmp.c ft_memcpy.c ft_memdel.c ft_memmove.c ft_memset.c ft_print_hex.c ft_print_hex_padded.c ft_print_memory.c ft_putchar.c ft_putchar_fd.c ft_putendl.c ft_putendl_fd.c ft_putnbr.c ft_putnbr_fd.c ft_putstr.c ft_putstr_fd.c ft_strcat.c ft_strchr.c ft_strclr.c ft_strcmp.c ft_strcpy.c ft_strdel.c ft_strdup.c ft_strequ.c ft_striter.c ft_striteri.c ft_strjoin.c ft_strlcat.c ft_strlen.c ft_strmap.c ft_strmapi.c ft_strncat.c ft_strnew.c ft_strncmp.c ft_strncpy.c ft_strnequ.c ft_strnstr.c ft_strrchr.c ft_strsplit.c ft_strstr.c ft_strsub.c ft_strtrim.c ft_toupper.c ft_tolower.c ft_printhexbyte.c ft_putchar_np.c ft_memdelr.c \
-	ft_hatnew.c ft_hatlfnew.c ft_hatinslf.c ft_hat_get_start_index.c ft_hat_get_end_index.c ft_hatset.c ft_hataccess.c ft_hatdellf.c ft_hatdel.c ft_hat_toarr.c ft_hatdeltolf.c ft_hatreindex.c ft_hatprint.c
+SRC=ft_atoi.c \
+ft_buffwriter.c \
+ft_bzero.c \
+ft_destroy_nullterm_ptrarray.c \
+ft_fdwclear.c \
+ft_fdwdel.c \
+ft_fdwnew.c \
+ft_fdwwrite.c \
+ft_fdwwriten.c \
+ft_fildeswriter.c \
+ft_hat.c \
+ft_hat_aux.c \
+ft_hat_backend_1.c \
+ft_hat_toarr.c \
+ft_hatdellf.c \
+ft_hatinslf.c \
+ft_itoa.c \
+ft_litoa.c \
+ft_mem_1.c \
+ft_mem_2.c \
+ft_memalloc.c \
+ft_memchr.c \
+ft_memcpy.c \
+ft_multistringer.c \
+ft_multistringer_aux.c \
+ft_print_hex.c \
+ft_putchar.c \
+ft_putnbr.c \
+ft_putstr.c \
+ft_sbtostr.c \
+ft_str_aux.c \
+ft_str_constructors.c \
+ft_strcat.c \
+ft_strclr.c \
+ft_strcmp.c \
+ft_strcpy.c \
+ft_stringbuilder.c \
+ft_stringwriter.c \
+ft_strjoin.c \
+ft_strjoin_inplace.c \
+ft_strjoin_inplace_rev.c \
+ft_strlen.c \
+ft_strnew.c \
+ft_strsplit.c \
+ft_strstr.c \
+ft_strsub.c \
+ft_strtrim.c
 
 OBJ=$(SRC:.c=.o)
 
 all: $(NAME)
 
 $(NAME): $(OBJ)
-	@ar rs $(NAME) $(OBJ)
+	@ar rs $(NAME) $(OBJ) #> /dev/null 2>&1
+	@echo "Libft compiled."
 
 %.o: %.c
-	@$(CC) -c $(CFLAGS) $< -o $@
+	@clang -c $(CFLAGS) $< -o $@
 
 clean:
 	@rm -f *.o
+	@rm -f test
+	@echo "libft: Object files removed."
 
 fclean:
 	@rm -f *.o
+	@rm -f test
 	@rm -f libft.a
+	@echo "libft: Object files and library removed."
 
 re:
-	@rm -f *.o
-	@rm -f libft.a
+	@make fclean
 	@make all
-
-hat_test: $(SRC) hat_test.c
-	$(CC) $(CLAGS) -o test $(SRC) hat_test.c
 

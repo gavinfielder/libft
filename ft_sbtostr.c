@@ -1,48 +1,21 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   ft_strcpy.c                                        :+:      :+:    :+:   */
+/*   ft_sbtostr.c                                       :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: gfielder <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2018/09/24 11:40:55 by gfielder          #+#    #+#             */
-/*   Updated: 2019/03/21 19:19:48 by gfielder         ###   ########.fr       */
+/*   Created: 2019/02/26 16:03:09 by gfielder          #+#    #+#             */
+/*   Updated: 2019/02/26 16:46:01 by gfielder         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include <stddef.h>
+#include "libft.h"
 
-char	*ft_strcpy(char *dst, const char *src)
+char	*ft_sbtostr(t_stringbuilder *sb)
 {
-	int	i;
+	char	*str;
 
-	i = 0;
-	while (src[i] != '\0')
-	{
-		dst[i] = src[i];
-		i++;
-	}
-	dst[i] = '\0';
-	return (dst);
-}
-
-char	*ft_strncpy(char *dst, const char *src, size_t n)
-{
-	size_t	i;
-	size_t	j;
-
-	i = 0;
-	j = 0;
-	while (i < n)
-	{
-		if (i == j && src[i] != '\0')
-		{
-			dst[i] = src[i];
-			j++;
-		}
-		else
-			dst[i] = '\0';
-		i++;
-	}
-	return (dst);
+	str = (char *)ft_hat_toarr(sb->hat, 0, sb->len);
+	return (str);
 }
