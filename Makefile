@@ -6,7 +6,7 @@
 #    By: gfielder <marvin@42.fr>                    +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2019/03/21 14:09:16 by gfielder          #+#    #+#              #
-#    Updated: 2019/03/21 21:05:53 by gfielder         ###   ########.fr        #
+#    Updated: 2019/03/21 21:21:30 by gfielder         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 #
@@ -55,7 +55,6 @@ ft_stringwriter.c \
 ft_strjoin.c \
 ft_strjoin_inplace.c \
 ft_strjoin_inplace_rev.c \
-ft_strlen.c \
 ft_strnew.c \
 ft_strsplit.c \
 ft_strstr.c \
