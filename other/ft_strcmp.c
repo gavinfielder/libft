@@ -6,7 +6,7 @@
 /*   By: gfielder <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/09/24 14:33:12 by gfielder          #+#    #+#             */
-/*   Updated: 2019/03/27 11:59:47 by gfielder         ###   ########.fr       */
+/*   Updated: 2019/04/11 12:30:54 by gfielder         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -17,6 +17,8 @@ int		ft_strcmp(const char *s1, const char *s2)
 	int	value;
 	int i;
 
+	if (!s1 || !s2)
+		return (0);
 	value = 0;
 	i = 0;
 	while (value == 0 && (s1[i] || s2[i]))
