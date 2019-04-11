@@ -6,7 +6,7 @@
 /*   By: gfielder <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/03/01 22:54:50 by gfielder          #+#    #+#             */
-/*   Updated: 2019/03/20 23:35:19 by gfielder         ###   ########.fr       */
+/*   Updated: 2019/03/27 13:35:35 by gfielder         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -98,7 +98,7 @@ typedef unsigned long	t_ui8;
 **   1   ##$ : choose argument number       FFFF.FFFC  (disallows self & prior)
 ** -----------------------------------------------------------------------------
 **   2   0   : zero padding                 FFFF.FFFD  (prior groups exc. %)
-**   3   ' ' : space before positive        FFFF.FFFC  (disallows prior groups)
+**   3   ' ' : space before positive        FFFF.FFFD  (prior groups exc. %)
 **   4   #   : alternate format display     FFFF.FFFC  (disallows prior groups)
 **   5   -   : left justify                 FFFF.FFFD  (prior groups exc. %)
 **   6   +   : always put a sign            FFFF.FFFC  (disallows prior groups)
@@ -108,7 +108,7 @@ typedef unsigned long	t_ui8;
 ** -----------------------------------------------------------------------------
 **   9   ##  : field width                  FFFF.FD81  (self & prior exc. pct)
 ** -----------------------------------------------------------------------------
-**   10   .  : precision                    FFFF.F980  (disallows self & prior)
+**   10   .  : precision                    FFFF.F981  (disallows self & prior)
 ** -----------------------------------------------------------------------------
 **   11  hh  : short short size modifier    FFFF.0000  (prior & same group)
 **   12  h   : short size modifer           FFFF.0000  (prior & same group)

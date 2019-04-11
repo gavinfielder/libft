@@ -6,7 +6,7 @@
 /*   By: gfielder <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/03/09 21:03:26 by gfielder          #+#    #+#             */
-/*   Updated: 2019/03/20 21:06:03 by gfielder         ###   ########.fr       */
+/*   Updated: 2019/03/27 12:59:24 by gfielder         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -67,13 +67,12 @@ int							ftpf_octal_expander(t_ftpf_master_data *md)
 	if (ftpf_getarg(md, &value) < 0)
 		return (0);
 	str = ft_luitoa_base_lower(value, 8);
+	if (md->ex->precision == 0 && value == 0 && md->ex->altform == 0)
+		ft_bzero(str, ft_strlen(str));
 	ftpf_handle_padding_octl(md, &str, value == 0);
 	i = 0;
 	while (str[i] && (md->max_len < 0 || md->len + i < md->max_len))
-	{
-		ft_mswriten(md->ms, str + i, 1);
-		i++;
-	}
+		ft_mswriten(md->ms, str + i++, 1);
 	free(str);
 	return (i);
 }

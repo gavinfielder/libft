@@ -6,11 +6,11 @@
 /*   By: gfielder <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/09/24 11:23:40 by gfielder          #+#    #+#             */
-/*   Updated: 2019/03/21 19:31:49 by gfielder         ###   ########.fr       */
+/*   Updated: 2019/03/27 12:00:20 by gfielder         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-int		ft_atoi(const char *str)
+int					ft_atoi(const char *str)
 {
 	int	i;
 	int	sign;

@@ -6,7 +6,7 @@
 /*   By: gfielder <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/03/07 12:21:15 by gfielder          #+#    #+#             */
-/*   Updated: 2019/03/20 23:44:37 by gfielder         ###   ########.fr       */
+/*   Updated: 2019/03/27 13:35:37 by gfielder         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -87,7 +87,7 @@ int								ftpf_check_spacepad_mod(t_ftpf_expandler *ex)
 {
 	if (*(ex->start + ex->handled_len) == ' ')
 	{
-		ex->check_flags &= 0xFFFFFFFC;
+		ex->check_flags &= 0xFFFFFFFD;
 		ex->handled_len++;
 		ex->space = 1;
 		return (1);

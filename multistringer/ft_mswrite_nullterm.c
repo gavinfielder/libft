@@ -1,20 +1,25 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   ft_multistringer.c                                 :+:      :+:    :+:   */
+/*   ft_mswrite_nullterm.c                              :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: gfielder <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2019/03/21 14:50:08 by gfielder          #+#    #+#             */
-/*   Updated: 2019/03/24 16:00:27 by gfielder         ###   ########.fr       */
+/*   Created: 2019/03/24 14:09:29 by gfielder          #+#    #+#             */
+/*   Updated: 2019/03/27 12:00:44 by gfielder         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
+#include <unistd.h>
 #include "libft.h"
 
 /*
 ** ----------------------------------------------------------------------------
 **                             ft_multistringer.c
+** ----------------------------------------------------------------------------
+**      This file holds functions that write null terminators to multistringers
+**      This is separate because it's not guaranteed to work as with normal
+**      strings.
 ** ----------------------------------------------------------------------------
 **      Multistringer is emulated polymorphism for various string printing
 **      functionality. It has four subtypes:
@@ -32,77 +37,78 @@
 **      Multistringer functions read the type variable and route the function
 **      call to the corresponding function of the proper subtype.
 ** ----------------------------------------------------------------------------
-**      1. ft_mswrite      writes a string to the multistringer
-**      2. ft_mswriten     writes up to n characters of a string
-**      3. ft_msclear      clears the multistringer
-**      4. ft_msdel        deletes the multistringer
+**      1. ft_mswrite_nullterm
+**      2. ft_sbwrite_nullterm
+**      3. ft_fdwwrite_nullterm
+**      4. ft_swwrite_nullterm
+**      5. ft_bwwrite_nullterm
 ** ----------------------------------------------------------------------------
 **                                    Safety
 ** ----------------------------------------------------------------------------
-**      Safety is guaranteed provided the subtypes are created with their
-**      respective 'new' functions and the 'type' member variable is not
-**      changed subsequent to creation. If 'type' variable does not refer to
-**      a valid subtype, nothing will be attempted.
+**      TODO
 ** ----------------------------------------------------------------------------
 **                                 Dependencies
 ** ----------------------------------------------------------------------------
-**      ft_stringwriter, ft_stringbuilder, ft_fildeswriter,
-**      ft_buffwriter, ft_hat, ft_bzero //TODO: any more?
+**      TODO
 ** ----------------------------------------------------------------------------
 */
 
-void	ft_mswrite(t_multistringer *ms, const char *str)
-{
-	if (ms == NULL || str == NULL)
-		return ;
-	if (ms->sb.type == 'B')
-		ft_sbwrite((t_stringbuilder *)ms, str);
-	else if (ms->sb.type == 'W')
-		ft_swwrite((t_stringwriter *)ms, str);
-	else if (ms->sb.type == 'U')
-		ft_bwwrite((t_stringwriter *)ms, str);
-	else if (ms->sb.type == 'F')
-		ft_fdwwrite((t_fdwriter *)ms, str);
-}
-
-void	ft_mswriten(t_multistringer *ms, const char *str, size_t n)
-{
-	if (ms == NULL || str == NULL)
-		return ;
-	if (ms->sb.type == 'B')
-		ft_sbwriten((t_stringbuilder *)ms, str, n);
-	else if (ms->sb.type == 'W')
-		ft_swwriten((t_stringwriter *)ms, str, n);
-	else if (ms->sb.type == 'U')
-		ft_bwwriten((t_stringwriter *)ms, str, n);
-	else if (ms->sb.type == 'F')
-		ft_fdwwriten((t_fdwriter *)ms, str, n);
-}
-
-void	ft_msclear(t_multistringer *ms)
+void		ft_mswrite_nullterm(t_multistringer *ms)
 {
 	if (ms == NULL)
 		return ;
 	if (ms->sb.type == 'B')
-		ft_sbclear((t_stringbuilder *)ms);
+		ft_sbwrite_nullterm((t_stringbuilder *)ms);
 	else if (ms->sb.type == 'W')
-		ft_swclear((t_stringwriter *)ms);
+		ft_swwrite_nullterm((t_stringwriter *)ms);
 	else if (ms->sb.type == 'U')
-		ft_bwclear((t_stringwriter *)ms);
+		ft_bwwrite_nullterm((t_stringwriter *)ms);
 	else if (ms->sb.type == 'F')
-		ft_fdwclear((t_fdwriter *)ms);
+		ft_fdwwrite_nullterm((t_fdwriter *)ms);
 }
 
-void	ft_msdel(t_multistringer **ms)
+void		ft_sbwrite_nullterm(t_stringbuilder *sb)
 {
-	if (ms == NULL || *ms == NULL)
+	char	*ptr;
+
+	ptr = (char *)ft_hataccess(sb->hat, (int)sb->len);
+	if (ptr == NULL)
 		return ;
-	if ((*ms)->sb.type == 'B')
-		ft_sbdel((t_stringbuilder **)ms);
-	else if ((*ms)->sb.type == 'W')
-		ft_swdel((t_stringwriter **)ms);
-	else if ((*ms)->sb.type == 'U')
-		ft_swdel((t_stringwriter **)ms);
-	else if ((*ms)->sb.type == 'F')
-		ft_fdwdel((t_fdwriter **)ms);
+	*ptr = '\0';
+	(sb->len)++;
+}
+
+void		ft_fdwwrite_nullterm(t_fdwriter *fdw)
+{
+	char	nt;
+
+	nt = '\0';
+	if (fdw == NULL)
+		return ;
+	write(fdw->fd, &nt, 1);
+	fdw->len++;
+}
+
+void		ft_swwrite_nullterm(t_stringwriter *sw)
+{
+	if (sw == NULL || sw->buff == NULL)
+		return ;
+	if (sw->len >= sw->capacity)
+	{
+		sw->buff[sw->capacity - 1] = '\0';
+		return ;
+	}
+	sw->buff[sw->len] = '\0';
+	(sw->len)++;
+	sw->buff[sw->len] = '\0';
+}
+
+void		ft_bwwrite_nullterm(t_stringwriter *sw)
+{
+	if (sw == NULL || sw->buff == NULL)
+		return ;
+	if (sw->len >= sw->capacity)
+		return ;
+	sw->buff[sw->len] = '\0';
+	(sw->len)++;
 }

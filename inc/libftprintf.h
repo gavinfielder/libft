@@ -6,7 +6,7 @@
 /*   By: gfielder <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/03/02 19:49:47 by gfielder          #+#    #+#             */
-/*   Updated: 2019/03/20 22:28:30 by gfielder         ###   ########.fr       */
+/*   Updated: 2019/03/23 20:32:11 by gfielder         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -47,5 +47,6 @@ int		ft_vsbprintf(t_stringbuilder *sb, const char *fmt, va_list args);
 int		ft_vdprintf(int fd, const char *fmt, va_list args);
 int		ft_vsprintf(char *str, const char *fmt, va_list args);
 int		ft_vsnprintf(char *str, size_t size, const char *fmt, va_list args);
+int		ft_vprintf(const char *fmt, va_list args);
 
 #endif

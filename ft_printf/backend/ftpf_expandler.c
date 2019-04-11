@@ -6,7 +6,7 @@
 /*   By: gfielder <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/03/01 22:53:17 by gfielder          #+#    #+#             */
-/*   Updated: 2019/03/21 00:14:43 by gfielder         ###   ########.fr       */
+/*   Updated: 2019/04/10 18:20:16 by gfielder         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -33,7 +33,7 @@ void						ftpf_read_specifier(t_ftpf_expandler *ex)
 	i = 0;
 	while (ex->check_flags)
 	{
-		if (ex->check_flags & (1 << (i % FTPF_NUM_CHECKFLAGS)))
+		if (ex->check_flags & (1 << i))
 		{
 			if (g_checkfuncs[i % FTPF_NUM_CHECKFLAGS](ex))
 				i = 0;

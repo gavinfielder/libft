@@ -6,10 +6,11 @@
 /*   By: gfielder <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/03/21 19:30:30 by gfielder          #+#    #+#             */
-/*   Updated: 2019/03/21 21:06:22 by gfielder         ###   ########.fr       */
+/*   Updated: 2019/03/24 14:30:44 by gfielder         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
+#include <stdlib.h>
 #include <stddef.h>
 
 void	*ft_memchr(const void *s, int c, size_t n)
@@ -68,4 +69,13 @@ void	*ft_memmove(void *dst, const void *src, size_t len)
 		}
 	}
 	return (dst);
+}
+
+void	*ft_memdelr(void **ap)
+{
+	if (ap == NULL || *ap == NULL)
+		return (NULL);
+	free(*ap);
+	*ap = NULL;
+	return (NULL);
 }

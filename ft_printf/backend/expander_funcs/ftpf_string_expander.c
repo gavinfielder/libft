@@ -6,10 +6,11 @@
 /*   By: gfielder <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/03/07 12:00:49 by gfielder          #+#    #+#             */
-/*   Updated: 2019/03/20 21:06:37 by gfielder         ###   ########.fr       */
+/*   Updated: 2019/03/27 12:53:02 by gfielder         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
+#include <stdlib.h>
 #include "ftpf_backend.h"
 
 /*
@@ -71,9 +72,13 @@ int			ftpf_string_expander(t_ftpf_master_data *md)
 	int		written;
 	char	*str;
 	int		i;
+	int		must_free_null;
 
-	if (ftpf_getarg(md, &str) < 0 || str == NULL)
+	must_free_null = 0;
+	if (ftpf_getarg(md, &str) < 0)
 		return (0);
+	if (str == NULL && (str = ft_strdup("(null)")) != NULL)
+		must_free_null = 1;
 	written = 0;
 	handle_padding(md, 0, str);
 	i = 0;
@@ -86,5 +91,7 @@ int			ftpf_string_expander(t_ftpf_master_data *md)
 	}
 	if (handle_padding(md, 1, str) > 0)
 		written += handle_padding(md, -1, str);
+	if (must_free_null)
+		free(str);
 	return (written);
 }

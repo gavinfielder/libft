@@ -6,7 +6,7 @@
 /*   By: gfielder <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/03/07 12:38:53 by gfielder          #+#    #+#             */
-/*   Updated: 2019/03/07 12:41:31 by gfielder         ###   ########.fr       */
+/*   Updated: 2019/03/23 16:41:24 by gfielder         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -68,8 +68,11 @@ int		ftpf_check_ptr_expansion(t_ftpf_expandler *ex)
 int		ftpf_check_signed_int_expansion(t_ftpf_expandler *ex)
 {
 	if ((*(ex->start + ex->handled_len) == 'd') ||
-		(*(ex->start + ex->handled_len) == 'i'))
+		(*(ex->start + ex->handled_len) == 'i') ||
+		(*(ex->start + ex->handled_len) == 'D'))
 	{
+		if (*(ex->start + ex->handled_len) == 'D')
+			ex->size_mod = FTPF_SIZEMOD_L;
 		ex->handled_len++;
 		ex->check_flags &= 0;
 		ex->expand = ftpf_signed_int_expander;
@@ -94,8 +97,11 @@ int		ftpf_check_binary_expansion(t_ftpf_expandler *ex)
 
 int		ftpf_check_unsigned_int_expansion(t_ftpf_expandler *ex)
 {
-	if (*(ex->start + ex->handled_len) == 'u')
+	if ((*(ex->start + ex->handled_len) == 'u') ||
+		(*(ex->start + ex->handled_len) == 'U'))
 	{
+		if (*(ex->start + ex->handled_len) == 'U')
+			ex->size_mod = FTPF_SIZEMOD_L;
 		ex->handled_len++;
 		ex->check_flags &= 0;
 		ex->expand = ftpf_unsigned_int_expander;

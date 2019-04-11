@@ -1,12 +1,12 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   ftpf_hexupper_expander.c                           :+:      :+:    :+:   */
+/*   ftpf_hexlower_expander.c                           :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: gfielder <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2019/03/09 20:47:26 by gfielder          #+#    #+#             */
-/*   Updated: 2019/03/20 21:05:04 by gfielder         ###   ########.fr       */
+/*   Created: 2019/03/09 20:11:00 by gfielder          #+#    #+#             */
+/*   Updated: 2019/03/27 12:56:54 by gfielder         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,12 +15,12 @@
 
 /*
 ** -----------------------------------------------------------------------------
-**                           ftpf_hexupper_expander.c
+**                           ftpf_hexlower_expander.c
 ** -----------------------------------------------------------------------------
-**   specifier:    %X
-**   description:  Prints an unsigned integer in uppercase hexadecimal
+**   specifier:    %x
+**   description:  Prints an unsigned integer in lowercase hexadecimal
 **   options:      #,0,-,hh,h,l,ll,.
-**   notes:        # prints leading 0X
+**   notes:        # prints leading 0x
 ** -----------------------------------------------------------------------------
 **                             general reminders
 ** -----------------------------------------------------------------------------
@@ -31,7 +31,7 @@
 ** -----------------------------------------------------------------------------
 */
 
-static void					ftpf_handle_padding_hexu(t_ftpf_master_data *md,
+static void					ftpf_handle_padding_hexl(t_ftpf_master_data *md,
 								char **str, int is_zero)
 {
 	size_t	str_len;
@@ -41,13 +41,13 @@ static void					ftpf_handle_padding_hexu(t_ftpf_master_data *md,
 	{
 		ft_strinsert_nchr(str, '0', 0, md->ex->precision - str_len);
 	}
-	if (md->ex->altform && !is_zero)
-		ft_strjoin_inplace_rev("0X", str);
+	if ((md->ex->altform && !is_zero) || (md->ex->expand == ftpf_ptr_expander))
+		ft_strjoin_inplace_rev("0x", str);
 	str_len = ft_strlen(*str);
 	if (md->ex->field_width > 0)
 	{
 		if (!(md->ex->lfjusty) && md->ex->zpad && (md->ex->precision <= 0))
-			ft_strinsert_nchr(str, '0', md->ex->altform * 2 * (!(is_zero)),
+			ft_strinsert_nchr(str, '0', (md->ex->altform * 2) * (!(is_zero)),
 					md->ex->field_width - str_len);
 		else if (!(md->ex->lfjusty))
 			ft_strinsert_nchr(str, ' ',
@@ -58,7 +58,7 @@ static void					ftpf_handle_padding_hexu(t_ftpf_master_data *md,
 	}
 }
 
-int							ftpf_hexupper_expander(t_ftpf_master_data *md)
+int							ftpf_hexlower_expander(t_ftpf_master_data *md)
 {
 	char		*str;
 	t_ftuint8	value;
@@ -67,14 +67,13 @@ int							ftpf_hexupper_expander(t_ftpf_master_data *md)
 	value = 0ull;
 	if (ftpf_getarg(md, &value) < 0)
 		return (0);
-	str = ft_luitoa_base_upper(value, 16);
-	ftpf_handle_padding_hexu(md, &str, value == 0);
+	str = ft_luitoa_base_lower(value, 16);
+	if (md->ex->precision == 0 && value == 0)
+		ft_bzero(str, ft_strlen(str));
+	ftpf_handle_padding_hexl(md, &str, value == 0);
 	i = 0;
 	while (str[i] && (md->max_len < 0 || md->len + i < md->max_len))
-	{
-		ft_mswriten(md->ms, str + i, 1);
-		i++;
-	}
+		ft_mswriten(md->ms, str + i++, 1);
 	free(str);
 	return (i);
 }

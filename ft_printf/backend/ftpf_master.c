@@ -6,7 +6,7 @@
 /*   By: gfielder <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/03/02 19:30:36 by gfielder          #+#    #+#             */
-/*   Updated: 2019/03/20 23:55:32 by gfielder         ###   ########.fr       */
+/*   Updated: 2019/03/27 12:10:37 by gfielder         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,24 +14,30 @@
 #include "ftpf_backend.h"
 #include <stdarg.h>
 
-static int			ftpf_preprocess_helper(t_ftpf_master_data *md, int j)
+static t_ftpf_getarg_func	ftpf_preprocess_helper(t_ftpf_master_data *md,
+								int *j)
 {
 	void				*hatptr;
 	t_ftpf_getarg_func	f;
 
 	f = ftpf_get_which_getter(md->ex);
-	if (md->ex->arg_num > 0)
-		j = md->ex->arg_num;
-	if ((hatptr = ft_hataccess(md->arg_getters, j)) == NULL)
-		return (FTPF_ERROR);
-	*((t_ftpf_getarg_func *)(hatptr)) = f;
-	return (j);
+	if (f != NULL && f != ftpf_getarg_null)
+	{
+		if (md->ex->arg_num > 0)
+			*j = md->ex->arg_num;
+		if ((hatptr = ft_hataccess(md->arg_getters, *j)) == NULL)
+			return (NULL);
+		*((t_ftpf_getarg_func *)(hatptr)) = f;
+	}
+	return (f);
 }
 
-static int			ftpf_preprocess(const char *fmt, t_ftpf_master_data *md)
+static int					ftpf_preprocess(const char *fmt,
+								t_ftpf_master_data *md)
 {
-	int				i;
-	int				j;
+	int					i;
+	int					j;
+	t_ftpf_getarg_func	f;
 
 	i = 0;
 	j = 1;
@@ -41,10 +47,11 @@ static int			ftpf_preprocess(const char *fmt, t_ftpf_master_data *md)
 		{
 			ftpf_expandler_init(md->ex, fmt + i);
 			ftpf_read_specifier(md->ex);
-			if ((j = ftpf_preprocess_helper(md, j)) == FTPF_ERROR)
+			if ((f = ftpf_preprocess_helper(md, &j)) == NULL)
 				return (FTPF_ERROR);
 			i += md->ex->total_specifier_len;
-			j++;
+			if (f != ftpf_getarg_null)
+				j++;
 		}
 		else
 			i++;
@@ -52,7 +59,8 @@ static int			ftpf_preprocess(const char *fmt, t_ftpf_master_data *md)
 	return (i);
 }
 
-static int			ftpf_master_helper(const char *fmt, t_ftpf_master_data *md)
+static int					ftpf_master_helper(const char *fmt,
+								t_ftpf_master_data *md)
 {
 	int		i;
 
@@ -78,8 +86,8 @@ static int			ftpf_master_helper(const char *fmt, t_ftpf_master_data *md)
 	return (md->len);
 }
 
-int					ftpf_master(t_multistringer *ms, const char *fmt,
-						int max_len, va_list args)
+int							ftpf_master(t_multistringer *ms, const char *fmt,
+								int max_len, va_list args)
 {
 	t_ftpf_master_data	md;
 	t_ftpf_expandler	ex;

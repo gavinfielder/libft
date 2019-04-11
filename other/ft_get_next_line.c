@@ -6,10 +6,12 @@
 /*   By: gfielder <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/02/16 11:05:27 by gfielder          #+#    #+#             */
-/*   Updated: 2019/03/21 22:18:16 by gfielder         ###   ########.fr       */
+/*   Updated: 2019/04/10 18:14:30 by gfielder         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
+#include <unistd.h>
+#include <stdlib.h>
 #include "libft.h"
 
 const char			g_init[] =
@@ -100,7 +102,12 @@ static void			hat_cleanup(t_fdhandler *h)
 		h->hat->head->next->start_index = h->hat->leaf_capacity;
 }
 
-int					ft_get_next_line(const int fd, char **line)
+/*
+** Use this to see the hashed array table in action:
+**		ft_hatprint(h->hat, FT_HAT_PRINTMODE_ASC);
+*/
+
+int					get_next_line(const int fd, char **line)
 {
 	static t_fdhandler	*of = NULL;
 	t_fdhandler_u		*current;

@@ -1,22 +1,24 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   ft_bzero.c                                         :+:      :+:    :+:   */
+/*   ft_vprintf.c                                       :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: gfielder <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2019/02/11 16:53:47 by gfielder          #+#    #+#             */
-/*   Updated: 2019/02/15 18:07:41 by gfielder         ###   ########.fr       */
+/*   Created: 2019/03/23 20:31:05 by gfielder          #+#    #+#             */
+/*   Updated: 2019/03/23 20:31:37 by gfielder         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include <string.h>
+#include <stdarg.h>
+#include "libft.h"
+#include "ftpf_backend.h"
+#include "libftprintf.h"
 
-void	ft_bzero(void *s, size_t len)
+int		ft_vprintf(const char *fmt, va_list args)
 {
-	size_t i;
+	int				ret_val;
 
-	i = 0;
-	while (i++ < len)
-		*((char *)s + i - 1) = '\0';
+	ret_val = ft_vdprintf(1, fmt, args);
+	return (ret_val);
 }

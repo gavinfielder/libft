@@ -6,7 +6,7 @@
 /*   By: gfielder <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/03/07 12:43:38 by gfielder          #+#    #+#             */
-/*   Updated: 2019/03/20 12:40:14 by gfielder         ###   ########.fr       */
+/*   Updated: 2019/03/23 16:42:27 by gfielder         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -67,8 +67,11 @@ int		ftpf_check_hexupper_expansion(t_ftpf_expandler *ex)
 
 int		ftpf_check_float_expansion(t_ftpf_expandler *ex)
 {
-	if (*(ex->start + ex->handled_len) == 'f')
+	if ((*(ex->start + ex->handled_len) == 'f') ||
+		(*(ex->start + ex->handled_len) == 'F'))
 	{
+		if (*(ex->start + ex->handled_len) == 'F')
+			ex->size_mod = FTPF_SIZEMOD_L;
 		ex->handled_len++;
 		ex->check_flags &= 0;
 		ex->expand = ftpf_float_expander;

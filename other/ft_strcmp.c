@@ -6,7 +6,7 @@
 /*   By: gfielder <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/09/24 14:33:12 by gfielder          #+#    #+#             */
-/*   Updated: 2019/03/21 19:05:38 by gfielder         ###   ########.fr       */
+/*   Updated: 2019/03/27 11:59:47 by gfielder         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -27,7 +27,7 @@ int		ft_strcmp(const char *s1, const char *s2)
 	return (value);
 }
 
-int	ft_strncmp(const char *s1, const char *s2, size_t n)
+int		ft_strncmp(const char *s1, const char *s2, size_t n)
 {
 	int		value;
 	size_t	i;
@@ -64,7 +64,7 @@ int		ft_strequ(char const *s1, char const *s2)
 		return (1);
 }
 
-int	ft_strnequ(const char *s1, const char *s2, size_t n)
+int		ft_strnequ(const char *s1, const char *s2, size_t n)
 {
 	int		value;
 	size_t	i;

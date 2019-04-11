@@ -6,13 +6,13 @@
 /*   By: gfielder <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/09/24 20:48:21 by gfielder          #+#    #+#             */
-/*   Updated: 2019/03/21 19:02:29 by gfielder         ###   ########.fr       */
+/*   Updated: 2019/03/27 12:00:07 by gfielder         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include <stddef.h>
 
-char	*ft_strcat(char *dest, const char *src)
+char			*ft_strcat(char *dest, const char *src)
 {
 	int i;
 	int j;
@@ -59,7 +59,7 @@ unsigned int	ft_strlcat(char *dest, const char *src, size_t size)
 		return (dest_initial_size + src_size);
 }
 
-char	*ft_strncat(char *dest, const char *src, size_t nb)
+char			*ft_strncat(char *dest, const char *src, size_t nb)
 {
 	size_t i;
 	size_t j;
