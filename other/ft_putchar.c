@@ -6,7 +6,7 @@
 /*   By: gfielder <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/09/25 23:56:09 by gfielder          #+#    #+#             */
-/*   Updated: 2019/03/21 18:32:30 by gfielder         ###   ########.fr       */
+/*   Updated: 2019/04/17 15:34:50 by gfielder         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -28,4 +28,24 @@ void	ft_putchar_np(char c, char c_if_nonprintable)
 		write(1, &c, 1);
 	else
 		write(1, &c_if_nonprintable, 1);
+}
+
+void	ft_putnchar_np_hex(const char *str, size_t n)
+{
+	size_t i;
+
+	if (str == NULL)
+		return ;
+	i = 0;
+	while (i < n)
+	{
+		if (str[i] >= 32 && str[i] <= 126)
+			ft_putchar(str[i]);
+		else
+		{
+			ft_putstr("\\x");
+			ft_printhexbyte(str + i);
+		}
+		i++;
+	}
 }

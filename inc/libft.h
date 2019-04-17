@@ -6,7 +6,7 @@
 /*   By: gfielder <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/02/11 19:50:30 by gfielder          #+#    #+#             */
-/*   Updated: 2019/03/27 12:08:04 by gfielder         ###   ########.fr       */
+/*   Updated: 2019/04/17 15:34:28 by gfielder         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -110,6 +110,7 @@ void					ft_print_hex(unsigned int n);
 void					ft_print_hex_padded(unsigned int n, unsigned int width);
 void					ft_putchar_np(char c, char c_if_nonprintable);
 void					ft_putstr_np(const char *str, char c_if_nonprintable);
+void					ft_putnchar_np_hex(const char *str, size_t n);
 
 /*
 ** ---------------------------- Hashed Array Tables ----------------------------
