@@ -6,7 +6,7 @@
 /*   By: gfielder <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/03/21 19:27:46 by gfielder          #+#    #+#             */
-/*   Updated: 2019/04/10 19:48:21 by gfielder         ###   ########.fr       */
+/*   Updated: 2019/04/17 17:06:20 by gfielder         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -47,7 +47,7 @@ void	ft_bzero(void *s, size_t len)
 	if (!len)
 		return ;
 	while (len--)
-		*((char *)s) = '\0';
+		*((char *)(s++)) = '\0';
 }
 
 void	*ft_memcpy(void *dst, const void *src, size_t n)
