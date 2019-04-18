@@ -6,7 +6,7 @@
 /*   By: gfielder <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/03/21 19:27:46 by gfielder          #+#    #+#             */
-/*   Updated: 2019/04/17 17:06:20 by gfielder         ###   ########.fr       */
+/*   Updated: 2019/04/17 21:05:35 by gfielder         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -44,8 +44,14 @@ void	*ft_memset(void *b, int c, size_t len)
 
 void	ft_bzero(void *s, size_t len)
 {
-	if (!len)
-		return ;
+	while (((uintptr_t)(const void *)(s) & 7u) != 0 && len--)
+		*((char *)(s++)) = '\0';
+	while (len >= 8)
+	{
+		*((uint64_t *)s) = 0;
+		s += 8;
+		len -= 8;
+	}
 	while (len--)
 		*((char *)(s++)) = '\0';
 }
