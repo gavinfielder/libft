@@ -6,7 +6,7 @@
 #    By: gfielder <marvin@42.fr>                    +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2019/02/28 21:19:45 by gfielder          #+#    #+#              #
-#    Updated: 2019/04/10 18:13:14 by gfielder         ###   ########.fr        #
+#    Updated: 2019/04/23 21:38:59 by gfielder         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -15,6 +15,12 @@ CC=clang
 CFLAGS=-Wall -Wextra -Werror
 INC=-I inc
 LIB=
+
+FTLS_SRC=ft_ls/cmp.c ft_ls/tree.c ft_ls/file.c ft_ls/options.c \
+	ft_ls/output.c ft_ls/output_h.c ft_ls/tty.c ft_ls/utils.c \
+	ft_ls/output_l.c ft_ls/cmp_time.c ft_ls/output_h_2.c ft_ls/utils_paths.c \
+	ft_ls/output_l_opt.c ft_ls/noop.c ft_ls/file_2.c ft_ls/libapi_dir.c \
+	ft_ls/libapi_file.c ft_ls/tree_2.c
 
 PRINTF_SRC=ft_printf/api/ft_asprintf.c ft_printf/api/ft_printf.c ft_printf/api/ft_sbprintf.c \
 	ft_printf/api/ft_snprintf.c ft_printf/api/ft_sprintf.c \
@@ -84,14 +90,14 @@ SRC=other/ft_get_next_line.c \
 	multistringer/ft_fildeswriter.c \
 	multistringer/ft_multistringer.c \
 	multistringer/ft_mswrite_nullterm.c \
-	multistringer/ft_stringbuilder.c $(PRINTF_SRC)
+	multistringer/ft_stringbuilder.c $(PRINTF_SRC) $(FTLS_SRC)
 
-OBJ:=$(shell echo $(SRC) | sed "s/\.c/\.o/g" | sed "s/ft_printf\//bin\//g" | sed "s/api\///g" | sed "s/backend\///g" | sed "s/expander_funcs\///g" | sed "s/checker_funcs\///g" | sed "s/getarg_funcs\///g" | sed "s/other\//bin\//g" | sed "s/hat\//bin\//g" | sed "s/multistringer\//bin\//g")
+OBJ:=$(shell echo $(SRC) | sed "s/\.c/\.o/g" | sed "s/ft_printf\//bin\//g" | sed "s/api\///g" | sed "s/backend\///g" | sed "s/expander_funcs\///g" | sed "s/checker_funcs\///g" | sed "s/getarg_funcs\///g" | sed "s/other\//bin\//g" | sed "s/hat\//bin\//g" | sed "s/multistringer\//bin\//g" | sed "s/ft_ls\//bin\//g" )
 
 all: $(NAME)
 
 $(NAME): bin
-	@ar rs $(NAME) $(OBJ)  > /dev/null 2>&1
+	@ar rs $(NAME) $(OBJ) > /dev/null 2>&1
 	@echo "Libft compiled."
 
 bin: $(SRC)
