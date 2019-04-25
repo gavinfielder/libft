@@ -6,7 +6,7 @@
 /*   By: gfielder <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/02/11 19:50:30 by gfielder          #+#    #+#             */
-/*   Updated: 2019/04/17 15:34:28 by gfielder         ###   ########.fr       */
+/*   Updated: 2019/04/24 20:35:52 by gfielder         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -304,5 +304,58 @@ typedef union			u_fdhandler
 }						t_fdhandler_u;
 
 int						ft_get_next_line(const int fd, char **line);
+
+/*
+** -------------------------------- Dictionary ---------------------------------
+*/
+
+/*
+** ------- autosize settings --------
+*/
+# define FTDICT_AUTO_STR -1
+
+typedef struct			s_dict_ent
+{
+	char				*key;
+	void				*value;
+	size_t				val_size;
+	struct s_dict_ent	*left;
+	struct s_dict_ent	*right;
+	struct s_dict_ent	*parent;
+}						t_dict_ent;
+
+typedef struct			s_dict
+{
+	struct s_dict_ent	*head;
+	int					autosize;
+}						t_dict;
+
+/*
+** -------- API ---------
+*/
+t_dict					*ft_dict_new(int autosize);
+int						ft_dict_set(t_dict *dict, char *key, void *value,
+							size_t size);
+int						ft_dict_unset(t_dict *dict, char *key);
+int						ft_dict_del(t_dict **dict);
+
+/*
+** ------- Debug --------
+*/
+int						ft_dict_print_entry(t_dict_ent *ent, int extended);
+int						ft_dict_print_tree(t_dict_ent *ent,
+							int extended, int depth);
+int						ft_dict_print(t_dict *dict);
+
+/*
+** ------ Utility -------
+*/
+t_dict_ent				*ft_dictent_new(char *key, void *value,
+							size_t val_size);
+int						ft_dict_add(t_dict *dict, t_dict_ent *ent);
+void					*ft_dict_get_byref(t_dict *dict, char *key);
+t_dict_ent				*ft_dict_getentry_byref(t_dict *dict, char *key);
+int						ft_dictent_del(t_dict_ent **ent);
+int						ft_dict_remove_entry(t_dict *dict, t_dict_ent *ent);
 
 #endif

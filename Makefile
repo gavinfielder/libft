@@ -6,7 +6,7 @@
 #    By: gfielder <marvin@42.fr>                    +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2019/02/28 21:19:45 by gfielder          #+#    #+#              #
-#    Updated: 2019/04/23 21:38:59 by gfielder         ###   ########.fr        #
+#    Updated: 2019/04/24 20:36:26 by gfielder         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -61,8 +61,6 @@ SRC=other/ft_get_next_line.c \
 	other/ft_putstr.c \
 	other/ft_strcmp.c \
 	other/ft_mem_1.c \
-	other/ft_destroy_nullterm_ptrarray.c \
-	other/ft_strsplit.c \
 	other/ft_strstr.c \
 	other/ft_putnbr.c \
 	other/ft_litoa.c \
@@ -77,12 +75,19 @@ SRC=other/ft_get_next_line.c \
 	other/ft_strjoin.c \
 	other/ft_atoi.c \
 	other/ft_print_hex.c \
-	hat/ft_hat_toarr.c \
-	hat/ft_hatdellf.c \
-	hat/ft_hat_aux.c \
-	hat/ft_hatinslf.c \
-	hat/ft_hat_backend_1.c \
-	hat/ft_hat.c \
+	collections/ft_strsplit.c \
+	collections/ft_destroy_nullterm_ptrarray.c \
+	collections/hat/ft_hat_toarr.c \
+	collections/hat/ft_hatdellf.c \
+	collections/hat/ft_hat_aux.c \
+	collections/hat/ft_hatinslf.c \
+	collections/hat/ft_hat_backend_1.c \
+	collections/hat/ft_hat.c \
+	collections/dict/ft_dict_access.c \
+	collections/dict/ft_dict_create.c \
+	collections/dict/ft_dict_print.c \
+	collections/dict/ft_dict_remove.c \
+	collections/dict/ft_dict_delete.c \
 	multistringer/ft_multistringer_aux.c \
 	multistringer/ft_sbtostr.c \
 	multistringer/ft_buffwriter.c \
@@ -92,7 +97,7 @@ SRC=other/ft_get_next_line.c \
 	multistringer/ft_mswrite_nullterm.c \
 	multistringer/ft_stringbuilder.c $(PRINTF_SRC) $(FTLS_SRC)
 
-OBJ:=$(shell echo $(SRC) | sed "s/\.c/\.o/g" | sed "s/ft_printf\//bin\//g" | sed "s/api\///g" | sed "s/backend\///g" | sed "s/expander_funcs\///g" | sed "s/checker_funcs\///g" | sed "s/getarg_funcs\///g" | sed "s/other\//bin\//g" | sed "s/hat\//bin\//g" | sed "s/multistringer\//bin\//g" | sed "s/ft_ls\//bin\//g" )
+OBJ:=$(shell echo $(SRC) | sed "s/\.c/\.o/g" | sed "s/ft_printf\//bin\//g" | sed "s/api\///g" | sed "s/backend\///g" | sed "s/expander_funcs\///g" | sed "s/checker_funcs\///g" | sed "s/getarg_funcs\///g" | sed "s/other\//bin\//g" | sed "s/collections\/hat\//bin\//g" | sed "s/collections\/dict\//bin\//g" | sed "s/collections\//bin\//g" | sed "s/multistringer\//bin\//g" | sed "s/ft_ls\//bin\//g" )
 
 all: $(NAME)
 
