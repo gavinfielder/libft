@@ -6,7 +6,7 @@
 /*   By: gfielder <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/02/11 19:50:30 by gfielder          #+#    #+#             */
-/*   Updated: 2019/04/24 20:35:52 by gfielder         ###   ########.fr       */
+/*   Updated: 2019/04/25 15:57:08 by gfielder         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -358,4 +358,33 @@ t_dict_ent				*ft_dict_getentry_byref(t_dict *dict, char *key);
 int						ft_dictent_del(t_dict_ent **ent);
 int						ft_dict_remove_entry(t_dict *dict, t_dict_ent *ent);
 
+/*
+** -------------------------------- Args Array ---------------------------------
+*/
+
+typedef struct			s_argsarr
+{
+	char				**argv;
+	int					argc;
+}						t_argsarr;
+
+t_argsarr				*ft_strsplit_args(char const *s, char c);
+t_argsarr				*ft_argsarr_del(t_argsarr **args);
+
 #endif
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
