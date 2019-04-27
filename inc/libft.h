@@ -6,7 +6,7 @@
 /*   By: gfielder <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/02/11 19:50:30 by gfielder          #+#    #+#             */
-/*   Updated: 2019/04/25 15:57:08 by gfielder         ###   ########.fr       */
+/*   Updated: 2019/04/27 16:49:23 by gfielder         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -371,20 +371,64 @@ typedef struct			s_argsarr
 t_argsarr				*ft_strsplit_args(char const *s, char c);
 t_argsarr				*ft_argsarr_del(t_argsarr **args);
 
+/*
+** ---------------------------------- Queue ------------------------------------
+*/
+
+/*
+** ------- autosize settings --------
+*/
+# define FTQ_AUTO_STR -1
+
+typedef struct			s_queue_ent
+{
+	void				*data;
+	size_t				data_size;
+	struct s_queue_ent	*next;
+}						t_queue_ent;
+
+typedef struct			s_queue
+{
+	struct s_queue_ent	*head;
+	struct s_queue_ent	*tail;
+	size_t				len;
+	int					autosize;
+}						t_queue;
+
+/*
+** -------- API ---------
+*/
+t_queue					*ft_queue_new(int autosize);
+int						ft_enqueue(t_queue *q, void *data, size_t data_size);
+void					*ft_dequeue(t_queue *q, size_t *data_size);
+void					*ft_queue_peek(t_queue *q, size_t *data_size);
+t_queue					*ft_queue_del(t_queue **q, int free_data_ptrs);
+void					ft_queue_flush(t_queue *q, int free_data_ptrs);
+
+/*
+** ------- Debug --------
+*/
+int						ft_queue_print(t_queue *q);
+
+/*
+** ------ Utility -------
+*/
+
+/*
+** -------------------------------- Options ------------------------------------
+*/
+
+# define FTOPT_MAX_OPTIONS 63
+
+typedef struct			s_clopt
+{
+	char				selected[FTOPT_MAX_OPTIONS + 1];
+	int					num_sel;
+	char				*program_name;
+	t_argsarr			args;
+}						t_clopt;
+
+t_clopt					ft_optget(int argc, char **argv);
+int						ft_issel(t_clopt *opt, char c);
+
 #endif
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
