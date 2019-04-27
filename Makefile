@@ -6,7 +6,7 @@
 #    By: gfielder <marvin@42.fr>                    +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2019/02/28 21:19:45 by gfielder          #+#    #+#              #
-#    Updated: 2019/04/25 16:05:40 by gfielder         ###   ########.fr        #
+#    Updated: 2019/04/27 16:48:16 by gfielder         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -67,6 +67,7 @@ SRC=other/ft_get_next_line.c \
 	other/ft_str_constructors.c \
 	other/ft_mem_2.c \
 	other/ft_strcpy.c \
+	other/ft_options.c \
 	other/ft_putchar.c \
 	other/ft_itoa.c \
 	other/ft_str_aux.c \
@@ -78,6 +79,7 @@ SRC=other/ft_get_next_line.c \
 	collections/ft_strsplit.c \
 	collections/ft_destroy_nullterm_ptrarray.c \
 	collections/ft_argsarr.c \
+	collections/ft_queue.c \
 	collections/hat/ft_hat_toarr.c \
 	collections/hat/ft_hatdellf.c \
 	collections/hat/ft_hat_aux.c \
@@ -103,12 +105,12 @@ OBJ:=$(shell echo $(SRC) | sed "s/\.c/\.o/g" | sed "s/ft_printf\//bin\//g" | sed
 all: $(NAME)
 
 $(NAME): bin
-	@ar rs $(NAME) $(OBJ) > /dev/null 2>&1
+	ar rs $(NAME) $(OBJ) #> /dev/null 2>&1
 	@echo "Libft compiled."
 
 bin: $(SRC)
 	@mkdir -p bin
-	@$(CC) -c $(CFLAGS) $(INC) $(SRC)
+	$(CC) -c $(CFLAGS) $(INC) $(SRC)
 	@mv *.o bin/
 
 clean:
