@@ -6,7 +6,7 @@
 /*   By: gfielder <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/02/11 19:50:30 by gfielder          #+#    #+#             */
-/*   Updated: 2019/04/29 20:05:43 by gfielder         ###   ########.fr       */
+/*   Updated: 2019/04/29 20:19:39 by gfielder         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -69,7 +69,7 @@ char					*ft_strtrim(char const *s);
 char					**ft_strsplit(char const *s, char c);
 void					ft_destroy_nullterm_ptrarray(void ***arr);
 int						ft_strrepl(char **str, unsigned int start, size_t len,
-							char *with);
+							const char *with);
 
 /*
 ** ------------------------------- String modifiers ----------------------------
