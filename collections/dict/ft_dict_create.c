@@ -6,7 +6,7 @@
 /*   By: gfielder <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/04/23 22:45:40 by gfielder          #+#    #+#             */
-/*   Updated: 2019/04/29 22:42:03 by gfielder         ###   ########.fr       */
+/*   Updated: 2019/04/29 22:45:18 by gfielder         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -63,6 +63,7 @@ int				ft_dict_set(t_dict *dict, char *key, void *value, size_t size)
 			return (-1);
 		ft_memdelr(&(ent->value));
 		ent->value = tmp;
+		ent->val_size = size;
 	}
 	else
 	{
