@@ -6,7 +6,7 @@
 #    By: gfielder <marvin@42.fr>                    +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2019/02/28 21:19:45 by gfielder          #+#    #+#              #
-#    Updated: 2019/04/29 18:58:27 by gfielder         ###   ########.fr        #
+#    Updated: 2019/04/29 20:09:10 by gfielder         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -73,6 +73,7 @@ SRC=other/ft_get_next_line.c \
 	other/ft_itoa.c \
 	other/ft_str_aux.c \
 	other/ft_strtrim.c \
+	other/ft_strrepl.c \
 	other/ft_strcat.c \
 	other/ft_strjoin.c \
 	other/ft_atoi.c \
