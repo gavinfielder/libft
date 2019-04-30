@@ -6,14 +6,14 @@
 /*   By: gfielder <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/04/25 15:57:20 by gfielder          #+#    #+#             */
-/*   Updated: 2019/04/30 00:55:24 by gfielder         ###   ########.fr       */
+/*   Updated: 2019/04/30 00:57:24 by gfielder         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include <stdlib.h>
 #include "libft.h"
 
-t_argsarr		*ft_strsplit_args(char const *s, char c)
+t_argsarr		*ft_strsplit_args(char const *s)
 {
 	t_argsarr		*args;
 
@@ -22,7 +22,7 @@ t_argsarr		*ft_strsplit_args(char const *s, char c)
 	if ((args = (t_argsarr *)malloc(sizeof(t_argsarr))) == NULL)
 		return (NULL);
 	ft_bzero(args, sizeof(t_argsarr));
-	if ((args->argv = ft_strsplit_grouping(s, c, "\"\"")) == NULL)
+	if ((args->argv = ft_strsplit_grouping(s, ' ', "\"\"")) == NULL)
 		return (ft_argsarr_del(&args));
 	while (args->argv[args->argc] != NULL)
 		(args->argc)++;

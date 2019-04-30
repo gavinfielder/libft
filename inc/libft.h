@@ -6,7 +6,7 @@
 /*   By: gfielder <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/02/11 19:50:30 by gfielder          #+#    #+#             */
-/*   Updated: 2019/04/30 00:01:12 by gfielder         ###   ########.fr       */
+/*   Updated: 2019/04/30 00:57:46 by gfielder         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -375,7 +375,7 @@ typedef struct			s_argsarr
 	int					argc;
 }						t_argsarr;
 
-t_argsarr				*ft_strsplit_args(char const *s, char c);
+t_argsarr				*ft_strsplit_args(char const *s);
 t_argsarr				*ft_argsarr_del(t_argsarr **args);
 
 /*
