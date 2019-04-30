@@ -6,7 +6,7 @@
 /*   By: gfielder <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/02/11 19:50:30 by gfielder          #+#    #+#             */
-/*   Updated: 2019/04/29 20:19:39 by gfielder         ###   ########.fr       */
+/*   Updated: 2019/04/29 22:33:39 by gfielder         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -35,6 +35,7 @@ void					*ft_memchr(const void *s, int c, size_t n);
 int						ft_memcmp(const void *s1, const void *s2, size_t n);
 void					*ft_memalloc(size_t size);
 void					*ft_memdelr(void **ap);
+void					*ft_memdup(void *src, size_t len);
 
 /*
 ** ----------------------------- String informators ----------------------------

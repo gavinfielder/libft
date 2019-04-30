@@ -6,10 +6,11 @@
 /*   By: gfielder <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/03/21 19:30:30 by gfielder          #+#    #+#             */
-/*   Updated: 2019/03/24 14:30:44 by gfielder         ###   ########.fr       */
+/*   Updated: 2019/04/29 22:32:41 by gfielder         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
+#include "libft.h"
 #include <stdlib.h>
 #include <stddef.h>
 
@@ -78,4 +79,21 @@ void	*ft_memdelr(void **ap)
 	free(*ap);
 	*ap = NULL;
 	return (NULL);
+}
+
+void	*ft_memdup(void *src, size_t len)
+{
+	void	*r;
+	size_t	i;
+
+	r = (void *)ft_memalloc(len + 1);
+	if (r == NULL)
+		return (NULL);
+	i = 0;
+	while (i < len)
+	{
+		((char *)r)[i] = ((char *)src)[i];
+		i++;
+	}
+	return (r);
 }
