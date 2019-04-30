@@ -6,7 +6,7 @@
 /*   By: gfielder <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/04/10 18:36:42 by gfielder          #+#    #+#             */
-/*   Updated: 2019/04/23 21:43:17 by gfielder         ###   ########.fr       */
+/*   Updated: 2019/04/30 01:23:24 by gfielder         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -96,6 +96,8 @@ t_file								*ft_match_file_loop(t_file *head,
 										const char *prefix, t_file *f);
 t_file								*ft_get_file(const char *path,
 										char *ftls_options);
+t_file								*ft_match_file_exact(t_file *head,
+										const char *filename);
 
 /*
 ** -----------------------------------------------------------------------------
