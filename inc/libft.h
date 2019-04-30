@@ -6,7 +6,7 @@
 /*   By: gfielder <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/02/11 19:50:30 by gfielder          #+#    #+#             */
-/*   Updated: 2019/04/29 22:33:39 by gfielder         ###   ########.fr       */
+/*   Updated: 2019/04/30 00:01:12 by gfielder         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -51,6 +51,7 @@ char					*ft_strnstr(const char *str, const char *to_find,
 							size_t max_len);
 int						ft_strequ(char const *s1, char const *s2);
 int						ft_strnequ(char const *s1, char const *s2, size_t n);
+int						ft_strchr_idx(const char *s, int c);
 
 /*
 ** -------------------- String constructors and destructors --------------------
@@ -60,6 +61,7 @@ char					*ft_strnew(size_t size);
 char					*ft_strsub(char const *s,
 							unsigned int start, size_t len);
 char					*ft_strdup(const char *str);
+char					*ft_strdup_to(const char *str, char c);
 char					*ft_strcpy(char *dst, const char *src);
 char					*ft_strncpy(char *dst, const char *src, size_t len);
 void					ft_strdel(char **as);
@@ -68,6 +70,8 @@ void					ft_strjoin_inplace(char **s1, char const *s2);
 void					ft_strjoin_inplace_rev(const char *s1, char **s2);
 char					*ft_strtrim(char const *s);
 char					**ft_strsplit(char const *s, char c);
+char					**ft_strsplit_grouping(char const *s, char c,
+							char *groupers);
 void					ft_destroy_nullterm_ptrarray(void ***arr);
 int						ft_strrepl(char **str, unsigned int start, size_t len,
 							const char *with);

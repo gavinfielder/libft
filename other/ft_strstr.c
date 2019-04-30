@@ -6,7 +6,7 @@
 /*   By: gfielder <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/02/11 20:27:59 by gfielder          #+#    #+#             */
-/*   Updated: 2019/03/21 19:08:45 by gfielder         ###   ########.fr       */
+/*   Updated: 2019/04/29 23:07:48 by gfielder         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -99,4 +99,16 @@ char	*ft_strrchr(const char *s, int c)
 		i--;
 	}
 	return (NULL);
+}
+
+int		ft_strchr_idx(const char *s, int c)
+{
+	char	*p;
+
+	if (!s)
+		return (-1);
+	p = ft_strchr(s, c);
+	if (!p)
+		return (-1);
+	return ((int)(p - s));
 }

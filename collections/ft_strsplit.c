@@ -3,67 +3,88 @@
 /*                                                        :::      ::::::::   */
 /*   ft_strsplit.c                                      :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: jinpark <marvin@42.fr>                     +#+  +:+       +#+        */
+/*   By: gfielder <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2019/03/21 20:52:48 by gfielder          #+#    #+#             */
-/*   Updated: 2019/03/21 20:57:20 by gfielder         ###   ########.fr       */
+/*   Created: 2019/04/29 22:58:25 by gfielder          #+#    #+#             */
+/*   Updated: 2019/04/30 00:44:58 by gfielder         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
-
-/*
-** Adapted from jinpark's code.
-**
-** Switched because my implementation relied on ft_lst and I wanted to delete
-** ft_lst. I'll need to come back and rewrite this later.
-*/
 
 #include "libft.h"
 #include <stdlib.h>
 
-static size_t	count_words(char const *s, char c)
+static int	count_words(const char *str, char c, char *groupers)
 {
-	size_t cnt;
+	int		i;
+	int		count;
+	int		idx;
 
-	cnt = 0;
-	while (*s == c)
-		s++;
-	while (*s)
+	i = 0;
+	count = 0;
+	while (str[i])
 	{
-		while (*s == c)
-			s++;
-		while (*s && *s != c)
-			s++;
-		if (*s || *s == '\0')
-			cnt++;
+		while (str[i] && str[i] == c)
+			i++;
+		idx = ft_strchr_idx(groupers, str[i]);
+		if (str[i] && idx >= 0 && ((idx & 1) == 0))
+		{
+			count++;
+			while (str[++i] && (str[i] != groupers[idx + 1] || !(i++)))
+				;
+		}
+		else if (str[i])
+		{
+			count++;
+			while (str[i] && str[i] != c)
+				i++;
+		}
 	}
-	return (cnt);
+	return (count);
 }
 
-char			**ft_strsplit(char const *s, char c)
+static void	strsplit_fill(char **ret, char const *str, char c, char *groupers)
 {
-	char	**a;
-	size_t	inside_a_word;
-	size_t	word_index;
-	size_t	i;
-	size_t	start;
+	int		i;
+	int		j;
+	int		idx;
 
-	if (!s)
-		return (NULL);
-	if (!(a = (char **)ft_memalloc((count_words(s, c) + 2) * sizeof(char *))))
-		return (NULL);
-	word_index = 0;
-	inside_a_word = 0;
-	i = -1;
-	start = 0;
-	while (s[++i])
+	i = 0;
+	j = -1;
+	while (str[i])
 	{
-		if (inside_a_word && s[i] == c)
-			a[word_index++] = ft_strsub(s, start, i - start);
-		if (!inside_a_word && s[i] != c)
-			start = i;
-		inside_a_word = (s[i] == c) ? 0 : 1;
+		while (str[i] && str[i] == c)
+			i++;
+		idx = ft_strchr_idx(groupers, str[i]);
+		if (str[i] && idx >= 0 && ((idx & 1) == 0))
+		{
+			ret[++j] = ft_strdup_to(str + (++i), groupers[idx + 1]);
+			i += ft_strlen(ret[j]);
+			if (str[i] == groupers[idx + 1])
+				i++;
+		}
+		else if (str[i])
+		{
+			ret[++j] = ft_strdup_to(str + i, c);
+			i += ft_strlen(ret[j]);
+		}
 	}
-	if (inside_a_word)
-		a[word_index] = ft_strsub(s, start, i - start);
-	return (a);
+}
+
+char		**ft_strsplit_grouping(char const *s, char c, char *groupers)
+{
+	char	**ret;
+	int		word_count;
+
+	if (!s || !groupers)
+		return (NULL);
+	word_count = count_words(s, c, groupers);
+	ret = (char **)malloc(sizeof(char *) * (word_count + 1));
+	strsplit_fill(ret, s, c, groupers);
+	ret[word_count] = NULL;
+	return (ret);
+}
+
+char		**ft_strsplit(char const *s, char c)
+{
+	return (ft_strsplit_grouping(s, c, ""));
 }

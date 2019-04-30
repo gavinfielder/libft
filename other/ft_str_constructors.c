@@ -6,7 +6,7 @@
 /*   By: gfielder <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/03/21 19:15:23 by gfielder          #+#    #+#             */
-/*   Updated: 2019/03/21 19:15:28 by gfielder         ###   ########.fr       */
+/*   Updated: 2019/04/29 23:42:42 by gfielder         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -32,6 +32,28 @@ char	*ft_strdup(const char *str)
 		r[i] = str[i];
 		i++;
 	}
+	return (r);
+}
+
+char	*ft_strdup_to(const char *str, char c)
+{
+	char	*r;
+	int		len;
+	int		i;
+
+	len = 0;
+	while (str[len] && str[len] != c)
+		len++;
+	r = (char *)malloc((sizeof(char) * (len + 1)));
+	if (r == NULL)
+		return (NULL);
+	i = 0;
+	while (i < len)
+	{
+		r[i] = str[i];
+		i++;
+	}
+	r[len] = '\0';
 	return (r);
 }
 
