@@ -6,7 +6,7 @@
 #    By: gfielder <marvin@42.fr>                    +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2019/02/28 21:19:45 by gfielder          #+#    #+#              #
-#    Updated: 2019/04/30 00:03:38 by gfielder         ###   ########.fr        #
+#    Updated: 2019/04/30 02:26:32 by gfielder         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -89,6 +89,7 @@ SRC=other/ft_get_next_line.c \
 	collections/hat/ft_hat_backend_1.c \
 	collections/hat/ft_hat.c \
 	collections/dict/ft_dict_access.c \
+	collections/dict/ft_dict_convert.c \
 	collections/dict/ft_dict_create.c \
 	collections/dict/ft_dict_print.c \
 	collections/dict/ft_dict_remove.c \

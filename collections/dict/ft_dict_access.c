@@ -6,12 +6,26 @@
 /*   By: gfielder <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/04/23 22:45:40 by gfielder          #+#    #+#             */
-/*   Updated: 2019/04/24 18:07:06 by gfielder         ###   ########.fr       */
+/*   Updated: 2019/04/30 02:11:21 by gfielder         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include <stdlib.h>
 #include "libft.h"
+
+static int		ft_dict_count_rec(t_dict_ent *ent)
+{
+	if (ent == NULL)
+		return (0);
+	return (1 + ft_dict_count_rec(ent->left) + ft_dict_count_rec(ent->right));
+}
+
+int				ft_dict_count_entries(t_dict *dict)
+{
+	if (!dict)
+		return (-1);
+	return (ft_dict_count_rec(dict->head));
+}
 
 void			*ft_dict_get_byref(t_dict *dict, char *key)
 {
