@@ -6,7 +6,7 @@
 #    By: gfielder <marvin@42.fr>                    +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2019/02/28 21:19:45 by gfielder          #+#    #+#              #
-#    Updated: 2019/04/27 16:48:16 by gfielder         ###   ########.fr        #
+#    Updated: 2019/04/29 18:58:27 by gfielder         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -22,7 +22,8 @@ FTLS_SRC=ft_ls/cmp.c ft_ls/tree.c ft_ls/file.c ft_ls/options.c \
 	ft_ls/output_l_opt.c ft_ls/noop.c ft_ls/file_2.c ft_ls/libapi_dir.c \
 	ft_ls/libapi_file.c ft_ls/tree_2.c
 
-PRINTF_SRC=ft_printf/api/ft_asprintf.c ft_printf/api/ft_printf.c ft_printf/api/ft_sbprintf.c \
+PRINTF_SRC=ft_printf/api/ft_asprintf.c ft_printf/api/ft_printf.c \
+		   ft_printf/api/ft_sbprintf.c ft_printf/api/ft_dprintf.c \
 	ft_printf/api/ft_snprintf.c ft_printf/api/ft_sprintf.c \
 	ft_printf/api/ft_vdprintf.c ft_printf/api/ft_vsbprintf.c \
 	ft_printf/api/ft_vsnprintf.c ft_printf/api/ft_vsprintf.c \
@@ -105,12 +106,12 @@ OBJ:=$(shell echo $(SRC) | sed "s/\.c/\.o/g" | sed "s/ft_printf\//bin\//g" | sed
 all: $(NAME)
 
 $(NAME): bin
-	ar rs $(NAME) $(OBJ) #> /dev/null 2>&1
+	@ar rs $(NAME) $(OBJ) #> /dev/null 2>&1
 	@echo "Libft compiled."
 
 bin: $(SRC)
 	@mkdir -p bin
-	$(CC) -c $(CFLAGS) $(INC) $(SRC)
+	@$(CC) -c $(CFLAGS) $(INC) $(SRC)
 	@mv *.o bin/
 
 clean:
