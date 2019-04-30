@@ -6,7 +6,7 @@
 #    By: gfielder <marvin@42.fr>                    +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2019/02/28 21:19:45 by gfielder          #+#    #+#              #
-#    Updated: 2019/04/29 20:09:10 by gfielder         ###   ########.fr        #
+#    Updated: 2019/04/29 22:35:14 by gfielder         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -107,7 +107,7 @@ OBJ:=$(shell echo $(SRC) | sed "s/\.c/\.o/g" | sed "s/ft_printf\//bin\//g" | sed
 all: $(NAME)
 
 $(NAME): bin
-	@ar rs $(NAME) $(OBJ) #> /dev/null 2>&1
+	@ar rs $(NAME) $(OBJ) > /dev/null 2>&1
 	@echo "Libft compiled."
 
 bin: $(SRC)
