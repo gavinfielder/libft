@@ -6,7 +6,7 @@
 /*   By: gfielder <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/04/23 22:45:40 by gfielder          #+#    #+#             */
-/*   Updated: 2019/04/29 22:45:18 by gfielder         ###   ########.fr       */
+/*   Updated: 2019/04/30 21:29:01 by gfielder         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -54,7 +54,7 @@ int				ft_dict_set(t_dict *dict, char *key, void *value, size_t size)
 	if (!dict || !key || !value)
 		return (-1);
 	if (dict->autosize == FTDICT_AUTO_STR)
-		size = ft_strlen((char *)value);
+		size = ft_strlen((char *)value) + 1;
 	else if (dict->autosize)
 		size = dict->autosize;
 	if ((ent = ft_dict_getentry_byref(dict, key)))
