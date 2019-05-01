@@ -6,7 +6,7 @@
 /*   By: gfielder <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/02/11 19:50:30 by gfielder          #+#    #+#             */
-/*   Updated: 2019/04/30 21:18:55 by gfielder         ###   ########.fr       */
+/*   Updated: 2019/04/30 23:08:42 by gfielder         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -346,6 +346,7 @@ int						ft_dict_set(t_dict *dict, char *key, void *value,
 int						ft_dict_unset(t_dict *dict, char *key);
 int						ft_dict_del(t_dict **dict);
 int						ft_dict_count_entries(t_dict *dict);
+t_dict					*ft_dict_copy(t_dict *dict);
 
 /*
 ** ---- Conversions -----
