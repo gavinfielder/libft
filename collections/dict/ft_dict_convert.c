@@ -6,7 +6,7 @@
 /*   By: gfielder <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/04/30 02:07:01 by gfielder          #+#    #+#             */
-/*   Updated: 2019/04/30 21:22:17 by gfielder         ###   ########.fr       */
+/*   Updated: 2019/05/06 07:51:05 by gfielder         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -20,7 +20,7 @@ int			ft_dict_set_parse(t_dict *dict, char *cmd)
 
 	if (!dict || !cmd)
 		return (-1);
-	split = ft_strsplit_args(cmd, '=', "\"\"");
+	split = ft_strsplit_args(cmd, "=", "\"\"");
 	if (split->argc != 2)
 	{
 		ft_argsarr_del(&split);

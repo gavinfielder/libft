@@ -6,13 +6,13 @@
 #    By: gfielder <marvin@42.fr>                    +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2019/02/28 21:19:45 by gfielder          #+#    #+#              #
-#    Updated: 2019/04/30 23:09:05 by gfielder         ###   ########.fr        #
+#    Updated: 2019/05/06 07:37:43 by gfielder         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
 NAME=libft.a
 CC=clang
-CFLAGS=-Wall -Wextra -Werror -g
+CFLAGS=-Wall -Wextra -Werror
 INC=-I inc
 LIB=
 
@@ -68,6 +68,7 @@ SRC=other/ft_get_next_line.c \
 	other/ft_str_constructors.c \
 	other/ft_mem_2.c \
 	other/ft_strcpy.c \
+	other/ft_strchr.c \
 	other/ft_options.c \
 	other/ft_putchar.c \
 	other/ft_itoa.c \
@@ -81,7 +82,6 @@ SRC=other/ft_get_next_line.c \
 	collections/ft_strsplit.c \
 	collections/ft_destroy_nullterm_ptrarray.c \
 	collections/ft_argsarr.c \
-	collections/ft_queue.c \
 	collections/hat/ft_hat_toarr.c \
 	collections/hat/ft_hatdellf.c \
 	collections/hat/ft_hat_aux.c \

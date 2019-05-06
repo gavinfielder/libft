@@ -6,65 +6,71 @@
 /*   By: gfielder <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/02/11 20:27:59 by gfielder          #+#    #+#             */
-/*   Updated: 2019/05/06 07:37:20 by gfielder         ###   ########.fr       */
+/*   Updated: 2019/05/06 07:37:02 by gfielder         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include <stddef.h>
 #include "libft.h"
 
-char	*ft_strstr(const char *str, const char *to_find)
+char	*ft_strchr(const char *s, int c)
 {
-	int	len;
-	int	match;
 	int	i;
 
-	match = 0;
 	i = 0;
-	len = ft_strlen(to_find);
-	if (len == 0)
-		return ((char *)str);
-	while (str[i] != '\0' && match < len)
+	while (s[i])
 	{
-		if (str[i] == to_find[match])
-			match++;
-		else
-		{
-			i = i - match;
-			match = 0;
-		}
+		if (*((unsigned char *)s + i) == (unsigned char)c)
+			return ((char *)s + i);
 		i++;
 	}
-	if (match == len)
-		return ((char *)(str + i - match));
-	else
-		return (0);
+	if ((unsigned char)c == '\0')
+		return ((char *)s + i);
+	return (NULL);
 }
 
-char	*ft_strnstr(const char *str, const char *to_find, size_t max_len)
+char	*ft_strrchr(const char *s, int c)
 {
-	size_t	len;
-	size_t	match;
-	size_t	i;
+	int	i;
 
-	match = 0;
 	i = 0;
-	len = ft_strlen(to_find);
-	if (len == 0)
-		return ((char *)str);
-	while (str[i] != '\0' && match < len && i < max_len)
+	while (s[i])
+		i++;
+	while (i >= 0)
 	{
-		if (str[i] == to_find[match])
-			match++;
-		else
-		{
-			i = i - match;
-			match = 0;
-		}
+		if (*((unsigned char *)s + i) == (unsigned char)c)
+			return ((char *)s + i);
+		i--;
+	}
+	return (NULL);
+}
+
+int		ft_strchr_idx(const char *s, int c)
+{
+	char	*p;
+
+	if (!s)
+		return (-1);
+	p = ft_strchr(s, c);
+	if (!p)
+		return (-1);
+	return ((int)(p - s));
+}
+
+int		ft_strchr_idx_any(const char *s, const char *any)
+{
+	int		min;
+	int		tmp;
+	int		i;
+
+	min = -1;
+	i = 0;
+	while (any[i])
+	{
+		tmp = ft_strchr_idx(s, any[i]);
+		if (min == -1 || (tmp != -1 && tmp < min))
+			min = tmp;
 		i++;
 	}
-	if (match == len)
-		return ((char *)(str + i - match));
-	else
-		return (0);
+	return (min);
 }

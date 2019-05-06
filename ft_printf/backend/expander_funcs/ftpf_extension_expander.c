@@ -6,7 +6,7 @@
 /*   By: gfielder <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/03/07 12:05:56 by gfielder          #+#    #+#             */
-/*   Updated: 2019/03/20 20:53:33 by gfielder         ###   ########.fr       */
+/*   Updated: 2019/05/06 07:51:39 by gfielder         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -124,7 +124,7 @@ int								ftpf_extension_expander(
 	int						i;
 
 	str = ft_strsub(md->ex->start, 2, md->ex->total_specifier_len - 3);
-	words = ft_strsplit(str, ' ');
+	words = ft_strsplit(str, " \t");
 	spec = ftpf_extension_read(words);
 	ft_destroy_nullterm_ptrarray((void ***)(&words));
 	free(str);
