@@ -6,7 +6,7 @@
 #    By: gfielder <marvin@42.fr>                    +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2019/02/28 21:19:45 by gfielder          #+#    #+#              #
-#    Updated: 2019/05/06 07:37:43 by gfielder         ###   ########.fr        #
+#    Updated: 2019/05/17 15:36:24 by gfielder         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -59,6 +59,7 @@ PRINTF_SRC=ft_printf/api/ft_asprintf.c ft_printf/api/ft_printf.c \
 	ft_printf/backend/getarg_funcs/ftpf_getarg_other.c
 
 SRC=other/ft_get_next_line.c \
+	other/ft_getfield.c \
 	other/ft_putstr.c \
 	other/ft_strcmp.c \
 	other/ft_mem_1.c \

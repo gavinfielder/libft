@@ -6,7 +6,7 @@
 /*   By: gfielder <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/02/11 19:50:30 by gfielder          #+#    #+#             */
-/*   Updated: 2019/05/06 07:50:30 by gfielder         ###   ########.fr       */
+/*   Updated: 2019/05/17 15:31:03 by gfielder         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -77,6 +77,8 @@ char					**ft_strsplit_grouping(char const *s, const char *delim,
 void					ft_destroy_nullterm_ptrarray(void ***arr);
 int						ft_strrepl(char **str, unsigned int start, size_t len,
 							const char *with);
+char					*ft_getfield(const char *str, int fieldno,
+							const char *delims);
 
 /*
 ** ------------------------------- String modifiers ----------------------------
