@@ -6,7 +6,7 @@
 /*   By: gfielder <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/02/11 19:50:30 by gfielder          #+#    #+#             */
-/*   Updated: 2019/04/30 23:08:42 by gfielder         ###   ########.fr       */
+/*   Updated: 2019/05/06 07:50:30 by gfielder         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -52,6 +52,7 @@ char					*ft_strnstr(const char *str, const char *to_find,
 int						ft_strequ(char const *s1, char const *s2);
 int						ft_strnequ(char const *s1, char const *s2, size_t n);
 int						ft_strchr_idx(const char *s, int c);
+int						ft_strchr_idx_any(const char *s, const char *any);
 
 /*
 ** -------------------- String constructors and destructors --------------------
@@ -62,6 +63,7 @@ char					*ft_strsub(char const *s,
 							unsigned int start, size_t len);
 char					*ft_strdup(const char *str);
 char					*ft_strdup_to(const char *str, char c);
+char					*ft_strdup_to_any(const char *str, const char *delim);
 char					*ft_strcpy(char *dst, const char *src);
 char					*ft_strncpy(char *dst, const char *src, size_t len);
 void					ft_strdel(char **as);
@@ -69,8 +71,8 @@ char					*ft_strjoin(char const *s1, char const *s2);
 void					ft_strjoin_inplace(char **s1, char const *s2);
 void					ft_strjoin_inplace_rev(const char *s1, char **s2);
 char					*ft_strtrim(char const *s);
-char					**ft_strsplit(char const *s, char c);
-char					**ft_strsplit_grouping(char const *s, char c,
+char					**ft_strsplit(char const *s, const char *delim);
+char					**ft_strsplit_grouping(char const *s, const char *delim,
 							char *groupers);
 void					ft_destroy_nullterm_ptrarray(void ***arr);
 int						ft_strrepl(char **str, unsigned int start, size_t len,
@@ -384,7 +386,7 @@ typedef struct			s_argsarr
 	int					argc;
 }						t_argsarr;
 
-t_argsarr				*ft_strsplit_args(char const *s, char c,
+t_argsarr				*ft_strsplit_args(char const *s, const char *delim,
 							char *groupers);
 t_argsarr				*ft_argsarr_del(t_argsarr **args);
 
