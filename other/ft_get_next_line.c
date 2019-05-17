@@ -6,7 +6,7 @@
 /*   By: gfielder <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/02/16 11:05:27 by gfielder          #+#    #+#             */
-/*   Updated: 2019/04/10 18:14:30 by gfielder         ###   ########.fr       */
+/*   Updated: 2019/05/01 02:34:03 by gfielder         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -107,7 +107,7 @@ static void			hat_cleanup(t_fdhandler *h)
 **		ft_hatprint(h->hat, FT_HAT_PRINTMODE_ASC);
 */
 
-int					get_next_line(const int fd, char **line)
+int					ft_get_next_line(const int fd, char **line)
 {
 	static t_fdhandler	*of = NULL;
 	t_fdhandler_u		*current;
