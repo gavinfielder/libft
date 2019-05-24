@@ -6,7 +6,7 @@
 /*   By: gfielder <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/02/11 19:50:30 by gfielder          #+#    #+#             */
-/*   Updated: 2019/05/24 14:02:37 by gfielder         ###   ########.fr       */
+/*   Updated: 2019/05/24 14:55:24 by gfielder         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -400,6 +400,12 @@ t_argsarr				*ft_argsarr_del(t_argsarr **args);
 ** ------- autosize settings --------
 */
 # define FTQ_AUTO_STR -1
+
+/*
+** --- free ptr settings for flus and del ---
+*/
+# define FTQ_FREE_PTRS
+# define FTQ_DO_NOT_FREE
 
 typedef struct			s_queue_ent
 {
