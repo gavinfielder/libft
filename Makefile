@@ -6,7 +6,7 @@
 #    By: gfielder <marvin@42.fr>                    +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2019/02/28 21:19:45 by gfielder          #+#    #+#              #
-#    Updated: 2019/05/17 15:36:24 by gfielder         ###   ########.fr        #
+#    Updated: 2019/05/24 14:04:25 by gfielder         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -83,6 +83,8 @@ SRC=other/ft_get_next_line.c \
 	collections/ft_strsplit.c \
 	collections/ft_destroy_nullterm_ptrarray.c \
 	collections/ft_argsarr.c \
+	collections/ft_queue.c \
+	collections/ft_queue_2.c \
 	collections/hat/ft_hat_toarr.c \
 	collections/hat/ft_hatdellf.c \
 	collections/hat/ft_hat_aux.c \
