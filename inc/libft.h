@@ -6,7 +6,7 @@
 /*   By: gfielder <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/02/11 19:50:30 by gfielder          #+#    #+#             */
-/*   Updated: 2019/05/24 14:55:24 by gfielder         ###   ########.fr       */
+/*   Updated: 2019/05/24 15:51:11 by gfielder         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -406,6 +406,12 @@ t_argsarr				*ft_argsarr_del(t_argsarr **args);
 */
 # define FTQ_FREE_PTRS
 # define FTQ_DO_NOT_FREE
+
+/*
+** ---- macro to use in place of data size to ------
+** ---- communicate that the queue is autosized ----
+*/
+# define FTQ_AUTOSIZE 0
 
 typedef struct			s_queue_ent
 {
